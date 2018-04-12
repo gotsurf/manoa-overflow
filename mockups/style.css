@@ -1,0 +1,13 @@
+.ui.topmenu.menu{
+  background-color: #024731;
+  margin: 0px 0px 0px 0px;
+  border-radius: 0px;
+}
+.ui.right.item{
+  color: #ccc;
+  font-size: 15pt;
+  font-family: "Times New Roman";
+}
+.ui.fitted.image.item{
+  height: 50px;
+}
