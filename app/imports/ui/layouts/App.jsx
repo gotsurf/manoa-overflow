@@ -17,6 +17,7 @@ import Signup from '../pages/Signup';
 import Signout from '../pages/Signout';
 //Mockup Pages
 import QuestionMockup from '../pages/QuestionMockup';
+import CoursePageMockup from '../pages/CoursePageMockup';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 class App extends React.Component {
@@ -30,6 +31,7 @@ class App extends React.Component {
               <Route path="/signin" component={Signin}/>
               <Route path="/signup" component={Signup}/>
               <Route path="/examplequestion" component={QuestionMockup}/>
+              <Route path="/examplecourse" component={CoursePageMockup}/>
               <ProtectedRoute path="/list" component={ListStuff}/>
               <ProtectedRoute path="/add" component={AddStuff}/>
               <ProtectedRoute path="/edit/:_id" component={EditStuff}/>

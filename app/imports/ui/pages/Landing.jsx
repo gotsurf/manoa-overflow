@@ -71,14 +71,14 @@ class Landing extends React.Component {
           <p>To view questions or ask questions pertaining to a course navigate to the course page below:</p>
           <Header as='h2'>Courses</Header>
           <List divided relaxed>
-            {courses.map(function (course) {
-                  return (<List.Item>
-                    <List.Content>
-                      <List.Header as='a'>{course.name}</List.Header>
-                      <List.Description as='a'>{course.description}</List.Description>
-                    </List.Content>
-                  </List.Item>);
-                }
+            {courses.map(function(course){
+              return (<List.Item>
+                <List.Content>
+                  <List.Header as='a' href='/#/examplecourse'>{course.name}</List.Header>
+                  <List.Description as='a' href='/#/examplecourse'>{course.description}</List.Description>
+                </List.Content>
+              </List.Item>);
+            }
             )}
           </List>
         </Container>
