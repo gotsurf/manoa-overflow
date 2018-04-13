@@ -8,7 +8,7 @@ export default class CoursePageMockup extends React.Component{
     return (
         <Container>
           <Header as='h2'>ICS 110</Header>
-          <hr/>
+          <p>(Alpha) Introduction to Computer Programming</p>
           <Header as='h3'>Questions:</Header>
           <hr/>
           <List divided relaxed>
