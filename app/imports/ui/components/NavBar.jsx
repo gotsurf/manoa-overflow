@@ -14,7 +14,7 @@ class NavBar extends React.Component {
       <Menu color={'teal'} style={menuStyle} attached="top" borderless inverted>
         <Menu.Item as={NavLink} activeClassName="" exact to="/">
           <img className="ui fitted image item"
-               src='https://raw.githubusercontent.com/gotsurf/manoa-overflow/master/mockups/ManoaOverflow.png'/>
+               src='/images/ManoaOverflow.png'/>
         </Menu.Item>
             <div className="ui item">My Courses</div>
         <div className="ui item">My Questions</div>
