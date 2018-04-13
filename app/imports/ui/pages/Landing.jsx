@@ -71,8 +71,8 @@ class Landing extends React.Component {
             {courses.map(function(course){
               return (<List.Item>
                 <List.Content>
-                  <List.Header as='a'>{course.name}</List.Header>
-                  <List.Description as='a'>{course.description}</List.Description>
+                  <List.Header as='a' href='/#/examplecourse'>{course.name}</List.Header>
+                  <List.Description as='a' href='/#/examplecourse'>{course.description}</List.Description>
                 </List.Content>
               </List.Item>);
             }

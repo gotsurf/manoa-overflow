@@ -17,9 +17,9 @@ export default class QuestionMockup extends React.Component{
             <Markdown options={{ forceBlock: true }}>
               I am trying to make cool program but I am noob. How do I make cool easy now?
             </Markdown>
-            <Markdown>
+            <p>
               Here is my code:
-            </Markdown>
+            </p>
 
             <Markdown>
               `System.out.println("Hello, World");`
