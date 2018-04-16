@@ -1,9 +1,11 @@
 import React from 'react';
-import { List, Header, Container, Image } from 'semantic-ui-react';
+import { List, Header, Container, Image, Tab } from 'semantic-ui-react';
 
 /** A simple static component to render some text for the landing page. */
 class Landing extends React.Component {
-  render() {
+
+  renderCourses() {
+
     const courses = [
       { name: 'ICS 101', description: 'Digital Tools for the Information World' },
       { name: 'ICS 110', description: '(Alpha) Introduction to Computer Programming' },
@@ -66,22 +68,32 @@ class Landing extends React.Component {
     ];
 
     return (
+        <List divided relaxed>
+          {courses.map(function(course){
+                return (<List.Item>
+                  <List.Content>
+                    <List.Header as='a' href='/#/examplecourse'>{course.name}</List.Header>
+                    <List.Description as='a' href='/#/examplecourse'>{course.description}</List.Description>
+                  </List.Content>
+                </List.Item>);
+              }
+          )}
+        </List>
+    );
+  }
+
+  render() {
+    const panes = [
+      { menuItem: 'Courses', render: () => <Tab.Pane>{this.renderCourses()}</Tab.Pane> },
+      { menuItem: 'Questions', render: () => <Tab.Pane>List of all questions, sorted by date.</Tab.Pane> },
+    ];
+
+    return (
         <Container>
           <Image src='/images/WelcomeManoaOverflow.png' centered/>
           <p>ManoaOverflow provides a platform for questions and answers specific to the UH Manoa ICS community.</p>
-          <p>To view questions or ask questions pertaining to a course navigate to the course page below:</p>
-          <Header as='h2'>Courses</Header>
-          <List divided relaxed>
-            {courses.map(function(course){
-              return (<List.Item>
-                <List.Content>
-                  <List.Header as='a' href='/#/examplecourse'>{course.name}</List.Header>
-                  <List.Description as='a' href='/#/examplecourse'>{course.description}</List.Description>
-                </List.Content>
-              </List.Item>);
-            }
-            )}
-          </List>
+          <p>To view questions or ask questions pertaining to a course navigate to the course page below or browse all questions.</p>
+          <Tab panes={panes} />
         </Container>
     );
   }
