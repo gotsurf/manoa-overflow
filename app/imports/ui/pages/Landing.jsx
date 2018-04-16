@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Header, Container } from 'semantic-ui-react';
+import { List, Header, Container, Image } from 'semantic-ui-react';
 
 /** A simple static component to render some text for the landing page. */
 class Landing extends React.Component {
@@ -67,6 +67,7 @@ class Landing extends React.Component {
 
     return (
         <Container>
+          <Image src='/images/WelcomeManoaOverflow.png' centered/>
           <p>ManoaOverflow provides a platform for questions and answers specific to the UH Manoa ICS community.</p>
           <p>To view questions or ask questions pertaining to a course navigate to the course page below:</p>
           <Header as='h2'>Courses</Header>
