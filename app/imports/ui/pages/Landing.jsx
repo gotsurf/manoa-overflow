@@ -46,7 +46,7 @@ Landing.propTypes = {
   ready: PropTypes.bool.isRequired,
 };
 
-export default withTracker(() => {
+export default withTracker(function() {
   // Get access to Stuff documents.
   const subscription = Meteor.subscribe('Courses');
   return {
