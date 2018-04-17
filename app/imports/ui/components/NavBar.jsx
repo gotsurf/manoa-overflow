@@ -17,7 +17,7 @@ class NavBar extends React.Component {
                  src='/images/ManoaOverflow.png'/>
           </Menu.Item>
           <div className="ui item">My Courses</div>
-          <div className="ui item">My Questions</div>
+          <Menu.Item as={NavLink} activeClassName="" exact to="/my-questions">My Questions</Menu.Item>
           <div className="ui item">My Answers</div>
           {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
               <div className="ui left item"><Menu.Item as={NavLink} activeClassName="active" exact to="/admin"
