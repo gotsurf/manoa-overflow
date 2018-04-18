@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Link } from 'react-router-dom';
-import Meteor from 'meteor/meteor';
+import { Meteor } from 'meteor/meteor';
 import { List, Container, Image, Tab } from 'semantic-ui-react';
 import { Courses } from '../../api/course/course.js';
 
