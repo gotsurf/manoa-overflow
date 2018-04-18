@@ -1,9 +1,10 @@
 import React from 'react';
-import { List, Header, Container, Image, Tab } from 'semantic-ui-react';
-import { Courses } from '../../api/course/course.js';
 import PropTypes from 'prop-types';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Link } from 'react-router-dom';
+import Meteor from 'meteor/meteor';
+import { List, Container, Image, Tab } from 'semantic-ui-react';
+import { Courses } from '../../api/course/course.js';
 
 /** A simple static component to render some text for the landing page. */
 class Landing extends React.Component {
