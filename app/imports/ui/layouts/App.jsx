@@ -16,7 +16,7 @@ import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
 import Signout from '../pages/Signout';
 
-//Mockup Pages
+// Mockup Pages
 
 import QuestionMockup from '../pages/QuestionMockup';
 import CoursePageMockup from '../pages/CoursePageMockup';
@@ -39,7 +39,7 @@ class App extends React.Component {
               <Route path="/examplecourse" component={CoursePageMockup}/>
               <ProtectedRoute path="/my-questions" component={MyQuestions}/>
               <ProtectedRoute path="/my-answers" component={MyAnswers}/>
-              <ProtectedRoute path="/my-courses" component={CoursePageMockup}/>
+              <ProtectedRoute path="/my-courses" component={MyCourses}/>
               <ProtectedRoute path="/list" component={ListStuff}/>
               <ProtectedRoute path="/add" component={AddStuff}/>
               <ProtectedRoute path="/edit/:_id" component={EditStuff}/>
