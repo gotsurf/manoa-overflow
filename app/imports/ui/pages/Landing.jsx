@@ -11,7 +11,7 @@ class Landing extends React.Component {
 
     return (
         <List divided relaxed>
-          {this.props.courses.map(function(course){
+          {this.props.courses.map(function (course) {
                 return (<List.Item>
                   <List.Content>
                     <List.Header as='a' href='/#/examplecourse'>{course.name}</List.Header>
@@ -36,8 +36,9 @@ class Landing extends React.Component {
             <Image src='/images/WelcomeManoaOverflow.png' centered/>
           </div>
           <p>ManoaOverflow provides a platform for questions and answers specific to the UH Manoa ICS community.</p>
-          <p>To view questions or ask questions pertaining to a course navigate to the course page below or browse all questions.</p>
-          <Tab panes={panes} />
+          <p>To view questions or ask questions pertaining to a course navigate to the course page below or browse all
+            questions.</p>
+          <Tab panes={panes}/>
         </Container>
     );
   }
