@@ -21,19 +21,16 @@ export default class MyCourses extends React.Component {
         <Container>
           <Header as='h2'> My Courses </Header>
           <List divided relaxed>
-          {courses.map(function (course) {
-                return (<List.Item>
-                  <List.Content>
-                    <List.Header as='a' href='/#/examplecourse'>{course.name}</List.Header>
-                    <List.Description as='a' href='/#/examplecourse'>{course.description}</List.Description>
-                  </List.Content>
-                </List.Item>);
-              },
-          )}
-        </List>
+            {courses.map(function (course, index) {
+              return (<List.Item key={index}>
+                <List.Content>
+                  <List.Header as='a' href='/#/examplecourse'>{course.name}</List.Header>
+                  <List.Description as='a' href='/#/examplecourse'>{course.description}</List.Description>
+                </List.Content>
+              </List.Item>);
+            })}
+          </List>
         </Container>
     );
   }
 }
-
-
