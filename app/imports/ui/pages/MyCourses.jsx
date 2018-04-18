@@ -10,7 +10,6 @@ export default class MyCourses extends React.Component {
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   /** Render the page once subscriptions have been received. */
   render() {
-
     const courses = [
       { "name": "ICS 311", "description": "Algorithms" },
       { "name": "ICS 312", "description": "Machine-Level and Systems Programming" },
@@ -36,3 +35,5 @@ export default class MyCourses extends React.Component {
     );
   }
 }
+
+
