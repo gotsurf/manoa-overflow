@@ -12,18 +12,17 @@ class Landing extends React.Component {
 
     return (
         <List divided relaxed>
-          {this.props.courses.map(function (course) {
-                return (
-                    <Link to={`/course/${course._id}`}>
-                      <List.Item>
-                        <List.Content>
-                          <List.Header>{course.name}</List.Header>
-                          <List.Description>{course.description}</List.Description>
-                        </List.Content>
-                      </List.Item>
-                    </Link>);
-              }
-          )}
+          {this.props.courses.map(function (course, index) {
+            return (
+                <List.Item key={index}>
+                  <Link to={`/course/${course._id}`}>
+                    <List.Content>
+                      <List.Header>{course.name}</List.Header>
+                      <List.Description>{course.description}</List.Description>
+                    </List.Content>
+                  </Link>
+                </List.Item>);
+          })}
         </List>
     );
   }
