@@ -37,7 +37,7 @@ class App extends React.Component {
               <Route path="/examplequestion" component={QuestionMockup}/>
               <Route path="/examplecourse" component={CoursePageMockup}/>
               <ProtectedRoute path="/myQuestions" component={MyQuestions}/>
-              <ProtectedRoute path="/myResponses" component={MyAnswers}/>
+              <ProtectedRoute path="/myAnswers" component={MyAnswers}/>
               <ProtectedRoute path="/myCourses" component={CoursePageMockup}/>
               <ProtectedRoute path="/list" component={ListStuff}/>
               <ProtectedRoute path="/add" component={AddStuff}/>
