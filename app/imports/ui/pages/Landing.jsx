@@ -26,6 +26,7 @@ class Landing extends React.Component {
 
   render() {
     const panes = [
+
       { menuItem: 'Courses', render: () => <Tab.Pane>{this.renderCourses()}</Tab.Pane> },
       { menuItem: 'Questions', render: () => <Tab.Pane>List of all questions, sorted by date.</Tab.Pane> },
     ];
