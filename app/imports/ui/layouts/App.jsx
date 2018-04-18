@@ -22,6 +22,7 @@ import QuestionMockup from '../pages/QuestionMockup';
 import CoursePageMockup from '../pages/CoursePageMockup';
 import MyQuestions from '../pages/MyQuestions';
 import MyAnswers from '../pages/MyAnswers';
+import MyCourses from '../pages/MyCourses';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 class App extends React.Component {
