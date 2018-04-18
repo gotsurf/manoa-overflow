@@ -15,7 +15,9 @@ import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
 import Signout from '../pages/Signout';
+
 //Mockup Pages
+
 import QuestionMockup from '../pages/QuestionMockup';
 import CoursePageMockup from '../pages/CoursePageMockup';
 import MyQuestions from '../pages/MyQuestions';
@@ -34,8 +36,9 @@ class App extends React.Component {
               <Route path="/signup" component={Signup}/>
               <Route path="/examplequestion" component={QuestionMockup}/>
               <Route path="/examplecourse" component={CoursePageMockup}/>
-              <Route path="/my-questions" component={MyQuestions}/>
-              <Route path="/my-answers" component={MyAnswers}/>
+              <ProtectedRoute path="/my-questions" component={MyQuestions}/>
+              <ProtectedRoute path="/my-answers" component={MyAnswers}/>
+              <ProtectedRoute path="/my-courses" component={CoursePageMockup}/>
               <ProtectedRoute path="/list" component={ListStuff}/>
               <ProtectedRoute path="/add" component={AddStuff}/>
               <ProtectedRoute path="/edit/:_id" component={EditStuff}/>
@@ -56,16 +59,16 @@ class App extends React.Component {
  * @param {any} { component: Component, ...rest }
  */
 const ProtectedRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={(props) => {
-      const isLogged = Meteor.userId() !== null;
-      return isLogged ?
-          (<Component {...props} />) :
-          (<Redirect to={{ pathname: '/signin', state: { from: props.location } }}/>
-      );
-    }}
-  />
+    <Route
+        {...rest}
+        render={(props) => {
+          const isLogged = Meteor.userId() !== null;
+          return isLogged ?
+              (<Component {...props} />) :
+              (<Redirect to={{ pathname: '/signin', state: { from: props.location } }}/>
+              );
+        }}
+    />
 );
 
 /**

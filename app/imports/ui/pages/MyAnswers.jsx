@@ -9,7 +9,7 @@ export default class MyAnswers extends React.Component {
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
-    //return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
+    // return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
     return this.renderPage();
   }
 
@@ -27,10 +27,10 @@ export default class MyAnswers extends React.Component {
   renderPage() {
 
     const answers = [
-      {course: 'ICS 110', question: 'how do I make cool stuff', date: Date.now(), answers: 3},
-      {course: 'ICS 311', question: 'how do I not die', date: Date.now()-2, answers: 4},
-      {course: 'ICS 314', question: 'how do I cheat on WOD', date: Date.now()-3, answers: 2},
-      {course: 'ICS 211', question: 'how do I make java beanz', date: Date.now()-4, answers: 1},
+      { course: 'ICS 110', question: 'how do I make cool stuff', date: Date.now(), answers: 3 },
+      { course: 'ICS 311', question: 'how do I not die', date: Date.now() - 2, answers: 4 },
+      { course: 'ICS 314', question: 'how do I cheat on WOD', date: Date.now() - 3, answers: 2 },
+      { course: 'ICS 211', question: 'how do I make java beanz', date: Date.now() - 4, answers: 1 },
     ];
 
     return (
