@@ -15,11 +15,10 @@ import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
 import Signout from '../pages/Signout';
+import Course from '../pages/Course';
 
 // Mockup Pages
-
 import QuestionMockup from '../pages/QuestionMockup';
-import CoursePageMockup from '../pages/CoursePageMockup';
 import MyQuestions from '../pages/MyQuestions';
 import MyAnswers from '../pages/MyAnswers';
 import MyCourses from '../pages/MyCourses';
@@ -36,7 +35,7 @@ class App extends React.Component {
               <Route path="/signin" component={Signin}/>
               <Route path="/signup" component={Signup}/>
               <Route path="/examplequestion" component={QuestionMockup}/>
-              <Route path="/examplecourse" component={CoursePageMockup}/>
+              <Route path="/course/:_id" component={Course}/>
               <ProtectedRoute path="/my-questions" component={MyQuestions}/>
               <ProtectedRoute path="/my-answers" component={MyAnswers}/>
               <ProtectedRoute path="/my-courses" component={MyCourses}/>

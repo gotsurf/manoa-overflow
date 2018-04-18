@@ -3,6 +3,7 @@ import { List, Header, Container, Image, Tab } from 'semantic-ui-react';
 import { Courses } from '../../api/course/course.js';
 import PropTypes from 'prop-types';
 import { withTracker } from 'meteor/react-meteor-data';
+import { Link } from 'react-router-dom';
 
 /** A simple static component to render some text for the landing page. */
 class Landing extends React.Component {
@@ -12,12 +13,15 @@ class Landing extends React.Component {
     return (
         <List divided relaxed>
           {this.props.courses.map(function (course) {
-                return (<List.Item>
-                  <List.Content>
-                    <List.Header as='a' href='/#/examplecourse'>{course.name}</List.Header>
-                    <List.Description as='a' href='/#/examplecourse'>{course.description}</List.Description>
-                  </List.Content>
-                </List.Item>);
+                return (
+                    <Link to={`/course/${course._id}`}>
+                      <List.Item>
+                        <List.Content>
+                          <List.Header>{course.name}</List.Header>
+                          <List.Description>{course.description}</List.Description>
+                        </List.Content>
+                      </List.Item>
+                    </Link>);
               }
           )}
         </List>
@@ -50,7 +54,7 @@ Landing.propTypes = {
   ready: PropTypes.bool.isRequired,
 };
 
-export default withTracker(function() {
+export default withTracker(function () {
   // Get access to Stuff documents.
   const subscription = Meteor.subscribe('Courses');
   return {
