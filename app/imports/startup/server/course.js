@@ -17,7 +17,7 @@ if (Courses.find().count() === 0) {
 
 /** This subscription publishes all courses */
 Meteor.publish('Courses', function publish() {
-  if(true){
+  if (true) {
     return Courses.find();
   }
   return this.ready();
