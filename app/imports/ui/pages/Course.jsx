@@ -19,6 +19,11 @@ class Course extends React.Component {
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   /** Render the page once subscriptions have been received. */
   renderPage() {
+    const descriptionStyle = {
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    };
     return (
         <Container>
           <Header as='h2'>{this.props.course.name}</Header>
@@ -33,9 +38,8 @@ class Course extends React.Component {
                     <Link to={`/question/${question._id}`}>
                       <List.Content>
                         <List.Header>{question.title}</List.Header>
-                        <List.Description>
-                          {(question.question.length > 50) ?
-                              (question.question.substring(0, 49) + '...') : question.question}
+                        <List.Description style={descriptionStyle}>
+                          {question.question}
                         </List.Description>
                       </List.Content>
                     </Link>
