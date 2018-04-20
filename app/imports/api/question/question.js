@@ -9,6 +9,7 @@ const Questions = new Mongo.Collection('Questions');
 const QuestionSchema = new SimpleSchema({
   owner: String,
   courseId: String,
+  courseName: String,
   title: String,
   question: String,
   dateCreated: Date,

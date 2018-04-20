@@ -23,7 +23,7 @@ class Course extends React.Component {
         <Container>
           <Header as='h2'>{this.props.course.name}</Header>
           <p>{this.props.course.description}</p>
-          <AddQuestion courseId={this.props.course._id} style={{ float: 'right' }}/>
+          <AddQuestion courseId={this.props.course._id} style={{ float: 'right' }} courseName={this.props.course.name}/>
           <hr/>
           {this.props.questions.length > 0 ? this.renderQuestionList() : 'There are no questions to display.'}
         </Container>

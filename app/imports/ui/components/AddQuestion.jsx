@@ -1,6 +1,6 @@
 import React from 'react';
 import { Questions, QuestionSchema } from '/imports/api/question/question';
-import { Segment, Modal, Button, Grid } from 'semantic-ui-react';
+import { Segment, Modal, Button } from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import TextField from 'uniforms-semantic/TextField';
 import SubmitField from 'uniforms-semantic/SubmitField';
@@ -29,16 +29,16 @@ class AddQuestion extends React.Component {
     } else {
       Bert.alert({ type: 'success', message: 'Add succeeded' });
       this.formRef.reset();
+      window.location.reload(true);
     }
   }
 
   /** On submit, insert the data. */
   submit(data) {
-    const { title, question } = data;
-    const courseId = this.props.courseId;
+    const { title, question, courseId, courseName } = data;
     const dateCreated = Date.now();
     const owner = Meteor.user().username;
-    Questions.insert({ title, question, owner, courseId, dateCreated }, this.insertCallback);
+    Questions.insert({ title, question, owner, courseId, courseName, dateCreated }, this.insertCallback);
   }
 
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
@@ -64,8 +64,9 @@ class AddQuestion extends React.Component {
                 <SubmitField value='submit'/>
                 <ErrorsField/>
                 <HiddenField name='owner' value='fakeuser@foo.com'/>
-                <HiddenField name='courseId' value='fakecourse'/>
+                <HiddenField name='courseId' value={this.props.courseId}/>
                 <HiddenField name='dateCreated' value={Date.now()}/>
+                <HiddenField name='courseName' value={this.props.courseName}/>
               </Segment>
             </AutoForm>
           </Modal.Content>
@@ -84,6 +85,7 @@ class AddQuestion extends React.Component {
 
 AddQuestion.propTypes = {
   courseId: PropTypes.string.isRequired,
+  courseName: PropTypes.string.isRequired,
 };
 
 export default AddQuestion;

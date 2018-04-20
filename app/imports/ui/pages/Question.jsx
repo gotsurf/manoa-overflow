@@ -1,25 +1,29 @@
 import React from 'react';
-import { Container, Header } from 'semantic-ui-react';
+import { Container, Header, Loader } from 'semantic-ui-react';
 import { Questions } from '/imports/api/question/question';
+import { Courses } from '/imports/api/course/course';
 import { Meteor } from 'meteor/meteor';
 import Markdown from 'markdown-to-jsx';
 import PropTypes from 'prop-types';
 import { withTracker } from 'meteor/react-meteor-data';
 
 class Question extends React.Component {
+
   render() {
+    return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
+  }
+
+  renderPage() {
     return (
         <Container>
-          <Header as='h2'>ICS 110 > How do I make cool program stuff?</Header>
+          <Header as='h2'>{this.props.question.courseName}{' > '}{this.props.question.title}</Header>
           <p>asked by <a>{this.props.question.owner}</a></p>
           <hr/>
           <div className='question-body'>
-            <p>Rating:</p>
             <Markdown options={{ forceBlock: true }}>
-              {'stuff'}
+              {this.props.question.question}
             </Markdown>
           </div>
-
         </Container>
     );
   }
@@ -28,6 +32,7 @@ class Question extends React.Component {
 /** Require the presence of a Stuff document in the props object. Uniforms adds 'model' to the props, which we use. */
 Question.propTypes = {
   question: PropTypes.object.isRequired,
+  course: PropTypes.object.isRequired,
   ready: PropTypes.bool.isRequired,
 };
 
@@ -37,8 +42,9 @@ export default withTracker(({ match }) => {
   const documentId = match.params._id;
   // Get access to Stuff documents.
   const subscription = Meteor.subscribe('Questions');
+  const subscription1 = Meteor.subscribe('Courses');
   return {
-    course: Questions.findOne(documentId),
-    ready: subscription.ready(),
+    question: Questions.findOne(documentId),
+    ready: (subscription.ready() && subscription1.ready()),
   };
 })(Question);
