@@ -12,16 +12,24 @@ import { Bert } from 'meteor/themeteorchef:bert';
 import { Meteor } from 'meteor/meteor';
 
 /** Renders the Page for adding a document. */
-class AddQuestion extends React.Component {
+export default class AddQuestion extends React.Component {
 
   /** Bind 'this' so that a ref to the Form can be saved in formRef and communicated between render() and submit(). */
   constructor(props) {
     super(props);
-    this.submit = this.submit.bind(this);
-    this.insertCallback = this.insertCallback.bind(this);
-    this.formRef = null;
+    this.state = { Title: '', Description: '', error: '', redirectToReferer: false };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
+  handleChange(e, { Title, Description }) {
+    this.setState({ [Title]: Description });
+  }
+
+  /** Handle Signin submission using Meteor's account mechanism. */
+  handleSubmit() {
+    
+  }
   /** Notify the user of the results of the submit. If successful, clear the form. */
   insertCallback(error) {
     if (error) {
@@ -34,9 +42,9 @@ class AddQuestion extends React.Component {
 
   /** On submit, insert the data. */
   submit(data) {
-    const { name, quantity, condition } = data;
+    const { title, description, } = data;
     const owner = Meteor.user().username;
-    Stuffs.insert({ name, quantity, condition, owner }, this.insertCallback);
+    Stuffs.insert({ title, description, owner }, this.insertCallback);
   }
 
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
@@ -51,6 +59,7 @@ class AddQuestion extends React.Component {
                 <LongTextField name='Description'/>
                 <SubmitField value='Submit'/>
                 <ErrorsField/>
+
                 <HiddenField name='owner' value='fakeuser@foo.com'/>
               </Segment>
             </AutoForm>
