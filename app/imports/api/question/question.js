@@ -12,7 +12,7 @@ const QuestionSchema = new SimpleSchema({
   course: String,
   title: String,
   question: String,
-  dateCreated: String,
+  dateCreated: Date,
 }, { tracker: Tracker });
 
 /** Attach this schema to the collection. */
