@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container, Header, Loader } from 'semantic-ui-react';
 import { Questions } from '/imports/api/question/question';
-import { Courses } from '/imports/api/course/course';
 import { Meteor } from 'meteor/meteor';
 import Markdown from 'markdown-to-jsx';
 import PropTypes from 'prop-types';

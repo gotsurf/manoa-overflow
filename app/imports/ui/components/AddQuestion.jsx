@@ -29,6 +29,7 @@ class AddQuestion extends React.Component {
     } else {
       Bert.alert({ type: 'success', message: 'Add succeeded' });
       this.formRef.reset();
+      // eslint-disable-next-line
       window.location.reload(true);
     }
   }
