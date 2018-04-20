@@ -19,34 +19,41 @@ class Course extends React.Component {
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   /** Render the page once subscriptions have been received. */
   renderPage() {
-    const descriptionStyle = {
-      whiteSpace: 'nowrap',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-    };
     return (
         <Container>
           <Header as='h2'>{this.props.course.name}</Header>
           <p>{this.props.course.description}</p>
           <AddQuestion courseId={this.props.course._id} style={{ float: 'right' }}/>
           <hr/>
-          <Header as='h3'>Questions</Header>
-          <List divided relaxed>
-            {this.props.questions.map(function (question, index) {
-              return (
-                  <List.Item key={index}>
-                    <Link to={`/question/${question._id}`}>
-                      <List.Content>
-                        <List.Header>{question.title}</List.Header>
-                        <List.Description style={descriptionStyle}>
-                          {question.question}
-                        </List.Description>
-                      </List.Content>
-                    </Link>
-                  </List.Item>);
-            })}
-          </List>
+          {this.props.questions.length > 0 ? this.renderQuestionList() : 'There are no questions to display.'}
         </Container>
+    );
+  }
+
+  renderQuestionList() {
+
+    const descriptionStyle = {
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    };
+
+    return (
+        <List divided relaxed>
+          {this.props.questions.map(function (question, index) {
+            return (
+                <List.Item key={index}>
+                  <Link to={`/question/${question._id}`}>
+                    <List.Content>
+                      <List.Header>{question.title}</List.Header>
+                      <List.Description style={descriptionStyle}>
+                        {question.question}
+                      </List.Description>
+                    </List.Content>
+                  </Link>
+                </List.Item>);
+          })}
+        </List>
     );
   }
 }
@@ -71,4 +78,3 @@ export default withTracker(({ match }) => {
     ready: (subscription.ready() && qSubs.ready()),
   };
 })(Course);
-
