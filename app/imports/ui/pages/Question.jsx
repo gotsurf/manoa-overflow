@@ -2,7 +2,6 @@ import React from 'react';
 import { Container, Header, Loader } from 'semantic-ui-react';
 import { Questions } from '/imports/api/question/question';
 import { Meteor } from 'meteor/meteor';
-import Markdown from 'markdown-to-jsx';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -14,18 +13,25 @@ class Question extends React.Component {
   }
 
   renderPage() {
+    const options = {
+      weekday: 'long', year: 'numeric', month: 'short',
+      day: 'numeric', hour: '2-digit', minute: '2-digit',
+    };
+
+    const date = this.props.question.dateCreated.toLocaleTimeString('en-us', options);
+
     return (
         <Container>
           <Header as='h2'>
             <Link to={`/course/${this.props.question.courseId}`}>{this.props.question.courseName}</Link>
             {' > '}{this.props.question.title}
           </Header>
-          <p>asked by {this.props.question.owner}</p>
+          <p>asked by {this.props.question.owner} at {date}</p>
           <hr/>
           <div className='question-body'>
-            <Markdown options={{ forceBlock: true }}>
+            <p style={{ whiteSpace: 'pre-wrap' }}>
               {this.props.question.question}
-            </Markdown>
+            </p>
           </div>
         </Container>
     );
