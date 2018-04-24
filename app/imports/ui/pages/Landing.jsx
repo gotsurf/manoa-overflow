@@ -18,7 +18,7 @@ class Landing extends React.Component {
                 <List.Item key={index}>
                   <Link to={`/course/${course._id}`}>
                     <List.Content>
-                      <List.Header>{course.name}</List.Header>
+                      <List.Header><a>{course.name}</a></List.Header>
                       <List.Description>{course.description}</List.Description>
                     </List.Content>
                   </Link>

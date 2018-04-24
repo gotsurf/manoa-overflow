@@ -4,6 +4,7 @@ import { Questions } from '/imports/api/question/question';
 import { Meteor } from 'meteor/meteor';
 import Markdown from 'markdown-to-jsx';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 
 class Question extends React.Component {
@@ -15,8 +16,11 @@ class Question extends React.Component {
   renderPage() {
     return (
         <Container>
-          <Header as='h2'>{this.props.question.courseName}{' > '}{this.props.question.title}</Header>
-          <p>asked by <a>{this.props.question.owner}</a></p>
+          <Header as='h2'>
+            <Link to={`/course/${this.props.question.courseId}`}>{this.props.question.courseName}</Link>
+            {' > '}{this.props.question.title}
+          </Header>
+          <p>asked by {this.props.question.owner}</p>
           <hr/>
           <div className='question-body'>
             <Markdown options={{ forceBlock: true }}>
@@ -31,7 +35,6 @@ class Question extends React.Component {
 /** Require the presence of a Stuff document in the props object. Uniforms adds 'model' to the props, which we use. */
 Question.propTypes = {
   question: PropTypes.object.isRequired,
-  course: PropTypes.object.isRequired,
   ready: PropTypes.bool.isRequired,
 };
 
@@ -41,9 +44,8 @@ export default withTracker(({ match }) => {
   const documentId = match.params._id;
   // Get access to Stuff documents.
   const subscription = Meteor.subscribe('Questions');
-  const subscription1 = Meteor.subscribe('Courses');
   return {
     question: Questions.findOne(documentId),
-    ready: (subscription.ready() && subscription1.ready()),
+    ready: subscription.ready(),
   };
 })(Question);
