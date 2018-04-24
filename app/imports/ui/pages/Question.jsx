@@ -1,4 +1,5 @@
 import React from 'react';
+import $ from 'jquery';
 import { Container, Header, Loader } from 'semantic-ui-react';
 import { Questions } from '/imports/api/question/question';
 import { Meteor } from 'meteor/meteor';
@@ -26,14 +27,31 @@ class Question extends React.Component {
             <Link to={`/course/${this.props.question.courseId}`}>{this.props.question.courseName}</Link>
             {' > '}{this.props.question.title}
           </Header>
-          <p>asked by {this.props.question.owner} at {date}</p>
+          <p>asked by <i>{this.props.question.owner}</i> on {date}</p>
           <hr/>
           <div className='question-body'>
-            <p style={{ whiteSpace: 'pre-wrap' }}>
-              {this.props.question.question}
-            </p>
+            {this.formatCodeSnippet()}
           </div>
         </Container>
+    );
+  }
+
+  formatCodeSnippet() {
+
+    const descArray = this.props.question.question.split('`');
+
+    return (
+        <div style={{ whiteSpace: 'pre-wrap' }}>
+          {descArray.map(function (key, index) {
+            if (index % 2 === 0) {
+              return <p>{key}</p>;
+            }
+            // eslint-disable-next-line
+            return <div className={'code-snippet'}>
+              <code>{key}</code>
+            </div>;
+          })}
+        </div>
     );
   }
 }

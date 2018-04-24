@@ -61,7 +61,8 @@ class AddQuestion extends React.Component {
             }} schema={QuestionSchema} onSubmit={this.submit}>
               <Segment>
                 <TextField name='title'/>
-                <LongTextField name='question'/>
+                <LongTextField name='question'
+                               label='Description (enclose your code snippets in backticks `like this`)'/>
                 <SubmitField value='submit'/>
                 <ErrorsField/>
                 <HiddenField name='owner' value='fakeuser@foo.com'/>
