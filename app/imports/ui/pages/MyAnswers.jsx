@@ -26,6 +26,7 @@ class MyAnswers extends React.Component {
       whiteSpace: 'nowrap',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
+      maxWidth: '300px',
     };
 
     const options = {

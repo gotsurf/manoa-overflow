@@ -34,6 +34,12 @@ export default class QuestionList extends React.Component {
 
     const { isLoading, results } = this.state;
 
+    const descriptionStyle = {
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    };
+
     let questions = this.props.questions;
 
     if (results.length > 0) {
@@ -55,7 +61,7 @@ export default class QuestionList extends React.Component {
                     <Link to={`/question/${question._id}`}>
                       <List.Content>
                         <List.Header as='a'>{question.name}</List.Header>
-                        <List.Description>{question.question}</List.Description>
+                        <List.Description style={descriptionStyle}>{question.question}</List.Description>
                       </List.Content>
                     </Link>
                   </List.Item>);
