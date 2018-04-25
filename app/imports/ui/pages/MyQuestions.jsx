@@ -1,15 +1,13 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Table, Header, Loader } from 'semantic-ui-react';
+import { Container, Table, Header } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { Questions } from '../../api/question/question.js';
-import { Courses } from '../../api/course/course';
-import QuestionList from '/imports/ui/components/QuestionList';
-
 
 /** Renders a table containing all of questions you have asked. */
-export default class MyQuestions extends React.Component {
+class MyQuestions extends React.Component {
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
@@ -18,12 +16,25 @@ export default class MyQuestions extends React.Component {
   }
 
   renderQuestion(question) {
+    const options = {
+      weekday: 'long', year: 'numeric', month: 'short',
+      day: 'numeric', hour: '2-digit', minute: '2-digit',
+    };
+
+    const date = question.dateCreated.toLocaleTimeString('en-us', options);
+
     return (
+
         <Table.Row>
-          <Table.Cell>{question.title}</Table.Cell>
-          <Table.Cell>{question.course}</Table.Cell>
-          <Table.Cell>{question.date}</Table.Cell>
+          <Table.Cell>
+            <Link to={`/question/${question._id}`}>
+              {question.title}
+            </Link>
+          </Table.Cell>
+          <Table.Cell>{question.courseName}</Table.Cell>
+          <Table.Cell>{date}</Table.Cell>
         </Table.Row>
+
     );
   }
 
@@ -50,16 +61,16 @@ export default class MyQuestions extends React.Component {
   }
 }
 
-Questions.propTypes = {
-questions: PropTypes.array.isRequired,
-    ready: PropTypes.bool.isRequired,
+MyQuestions.propTypes = {
+  questions: PropTypes.array.isRequired,
+  ready: PropTypes.bool.isRequired,
 };
 
 export default withTracker(function () {
   // Get access to Stuff documents.
-  const subscription2 = Meteor.subscribe('Questions');
+  const subscription = Meteor.subscribe('Questions');
   return {
-    questions: Questions.find({ owner: Meteor.user().username}).fetch(),
-    ready: subscription2.ready()
+    questions: Questions.find({ owner: (Meteor.user() ? Meteor.user().username : '') }).fetch(),
+    ready: subscription.ready(),
   };
-})(Questions);
+})(MyQuestions);
