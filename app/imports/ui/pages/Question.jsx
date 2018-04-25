@@ -1,5 +1,4 @@
 import React from 'react';
-import $ from 'jquery';
 import { Container, Header, Loader } from 'semantic-ui-react';
 import { Questions } from '/imports/api/question/question';
 import { Meteor } from 'meteor/meteor';
