@@ -21,7 +21,7 @@ export default class QuestionList extends React.Component {
       if (this.state.value.length < 1) return this.resetComponent();
 
       const re = new RegExp(_.escapeRegExp(this.state.value), 'i');
-      const isMatch = result => re.test(result.name + result.description);
+      const isMatch = result => re.test(result.name + result.question);
 
       this.setState({
         isLoading: false,
