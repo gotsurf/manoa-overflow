@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { List, Header, Container, Loader, Grid } from 'semantic-ui-react';
+import { List, Header, Container, Loader } from 'semantic-ui-react';
 import { Courses } from '/imports/api/course/course';
 import { Questions } from '/imports/api/question/question';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -24,7 +24,9 @@ class Course extends React.Component {
         <Container>
           <Header as='h2'>{this.props.course.name}</Header>
           <p>&quot;{this.props.course.description}&quot;</p>
-          <SubscribeToCourse userId={Meteor.user()._id} courseId={this.props.course._id}/>
+          {Meteor.user() ? (<SubscribeToCourse userId={Meteor.user()._id}
+                                               courseId={this.props.course._id}/>) : ''}
+
           {this.renderQuestionHeading()}
           <hr/>
           {this.props.questions.length > 0 ? this.renderQuestionList() : 'There are no questions to display.'}
@@ -41,7 +43,7 @@ class Course extends React.Component {
             </span>
             <span>
               <AddQuestion courseId={this.props.course._id} style={{ float: 'right' }}
-                         courseName={this.props.course.name}/>
+                           courseName={this.props.course.name}/>
             </span>
           </div>
       );
