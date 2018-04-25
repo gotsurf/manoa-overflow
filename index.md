@@ -20,6 +20,7 @@ You can see our app running <a href='http://manoaoverflow.meteorapp.com/'>here</
 ## Milestone 1: Page Mockups
 <a href='https://github.com/gotsurf/manoa-overflow/projects/1'>
                             https://github.com/gotsurf/manoa-overflow/projects/1</a>
+
 #### Landing
 
 <img src='app/public/images/m1/landing.png'/>
@@ -41,6 +42,7 @@ Questions will have answers posted below. Both questions and answers have a vote
 ## Milestone 2: Functionality and Refined UI
 <a href='https://github.com/gotsurf/manoa-overflow/projects/2'>
 https://github.com/gotsurf/manoa-overflow/projects/2</a>
+
 #### Landing
 
 <img src='app/public/images/m2/Home.png'/>
