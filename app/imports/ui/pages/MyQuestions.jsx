@@ -1,11 +1,13 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Table, Header, Loader } from 'semantic-ui-react';
+import { Container, Table, Header } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { Questions } from '../../api/question/question.js';
 
 /** Renders a table containing all of questions you have asked. */
-export default class MyQuestions extends React.Component {
+class MyQuestions extends React.Component {
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
@@ -14,25 +16,34 @@ export default class MyQuestions extends React.Component {
   }
 
   renderQuestion(question) {
+    const options = {
+      weekday: 'long', year: 'numeric', month: 'short',
+      day: 'numeric', hour: '2-digit', minute: '2-digit',
+    };
+
+    const date = question.dateCreated.toLocaleTimeString('en-us', options);
+
     return (
+
         <Table.Row>
-          <Table.Cell>{question.title}</Table.Cell>
-          <Table.Cell>{question.course}</Table.Cell>
-          <Table.Cell>{question.date}</Table.Cell>
-          <Table.Cell>{question.answers}</Table.Cell>
+          <Table.Cell>
+            <Link to={`/question/${question._id}`}>
+              {question.name}
+            </Link>
+          </Table.Cell>
+          <Table.Cell>
+            <Link to={`/course/${question.courseId}`}>
+              {question.courseName}
+            </Link>
+          </Table.Cell>
+          <Table.Cell>{date}</Table.Cell>
         </Table.Row>
+
     );
   }
 
   /** Render the page once subscriptions have been received. */
   renderPage() {
-
-    const questions = [
-      {course: 'ICS 110', title: 'how do I make cool stuff', date: Date.now(), answers: 3},
-      {course: 'ICS 311', title: 'how do I not die', date: Date.now()-2, answers: 4},
-      {course: 'ICS 314', title: 'how do I cheat on WOD', date: Date.now()-3, answers: 2},
-      {course: 'ICS 211', title: 'how do I make java beanz', date: Date.now()-4, answers: 1},
-    ];
 
     return (
         <Container>
@@ -43,14 +54,27 @@ export default class MyQuestions extends React.Component {
                 <Table.HeaderCell>Question</Table.HeaderCell>
                 <Table.HeaderCell>Course</Table.HeaderCell>
                 <Table.HeaderCell>Date Created</Table.HeaderCell>
-                <Table.HeaderCell>Answers</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>
-              {questions.map((question) => this.renderQuestion(question))}
+              {this.props.questions.map((question) => this.renderQuestion(question))}
             </Table.Body>
           </Table>
         </Container>
     );
   }
 }
+
+MyQuestions.propTypes = {
+  questions: PropTypes.array.isRequired,
+  ready: PropTypes.bool.isRequired,
+};
+
+export default withTracker(function () {
+  // Get access to Stuff documents.
+  const subscription = Meteor.subscribe('Questions');
+  return {
+    questions: Questions.find({ owner: (Meteor.user() ? Meteor.user().username : '') }).fetch(),
+    ready: subscription.ready(),
+  };
+})(MyQuestions);

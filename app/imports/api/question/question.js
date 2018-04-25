@@ -10,7 +10,7 @@ const QuestionSchema = new SimpleSchema({
   owner: String,
   courseId: String,
   courseName: String,
-  title: String,
+  name: String,
   question: String,
   dateCreated: Date,
 }, { tracker: Tracker });

@@ -1,8 +1,7 @@
 import React from 'react';
-import { Questions, QuestionSchema } from '/imports/api/question/question';
+import { Answers, AnswerSchema } from '/imports/api/answer/answer';
 import { Segment, Modal, Button } from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';
-import TextField from 'uniforms-semantic/TextField';
 import SubmitField from 'uniforms-semantic/SubmitField';
 import HiddenField from 'uniforms-semantic/HiddenField';
 import ErrorsField from 'uniforms-semantic/ErrorsField';
@@ -11,7 +10,7 @@ import { Bert } from 'meteor/themeteorchef:bert';
 import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 
-class AddQuestion extends React.Component {
+class AddAnswer extends React.Component {
 
   /** Bind 'this' so that a ref to the Form can be saved in formRef and communicated between render() and submit(). */
   constructor(props) {
@@ -36,10 +35,10 @@ class AddQuestion extends React.Component {
 
   /** On submit, insert the data. */
   submit(data) {
-    const { name, question, courseId, courseName } = data;
+    const { questionId, answer } = data;
     const dateCreated = Date.now();
     const owner = Meteor.user().username;
-    Questions.insert({ name, question, owner, courseId, courseName, dateCreated }, this.insertCallback);
+    Answers.insert({ questionId, answer, dateCreated, owner }, this.insertCallback);
   }
 
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
@@ -53,22 +52,20 @@ class AddQuestion extends React.Component {
     };
 
     return (
-        <Modal trigger={<Button>Add Question</Button>} style={modalStyle.modal}>
-          <Modal.Header>Add Question</Modal.Header>
+        <Modal trigger={<Button>Add Answer</Button>} style={modalStyle.modal}>
+          <Modal.Header>Add Answer</Modal.Header>
           <Modal.Content>
             <AutoForm ref={(ref) => {
               this.formRef = ref;
-            }} schema={QuestionSchema} onSubmit={this.submit}>
+            }} schema={AnswerSchema} onSubmit={this.submit}>
               <Segment>
-                <TextField name='name' label='Title'/>
-                <LongTextField name='question'
+                <LongTextField name='answer'
                                label='Description (enclose your code snippets in backticks `like this`)'/>
                 <SubmitField value='submit'/>
                 <ErrorsField/>
-                <HiddenField name='owner' value='fakeuser@foo.com'/>
-                <HiddenField name='courseId' value={this.props.courseId}/>
+                <HiddenField name='owner' value={Meteor.user().username}/>
+                <HiddenField name='questionId' value={this.props.questionId}/>
                 <HiddenField name='dateCreated' value={Date.now()}/>
-                <HiddenField name='courseName' value={this.props.courseName}/>
               </Segment>
             </AutoForm>
           </Modal.Content>
@@ -85,9 +82,8 @@ class AddQuestion extends React.Component {
   }
 }
 
-AddQuestion.propTypes = {
-  courseId: PropTypes.string.isRequired,
-  courseName: PropTypes.string.isRequired,
+AddAnswer.propTypes = {
+  questionId: PropTypes.string.isRequired,
 };
 
-export default AddQuestion;
+export default AddAnswer;

@@ -11,7 +11,7 @@ import { Bert } from 'meteor/themeteorchef:bert';
 import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 
-class AddQuestion extends React.Component {
+class EditQuestion extends React.Component {
 
   /** Bind 'this' so that a ref to the Form can be saved in formRef and communicated between render() and submit(). */
   constructor(props) {
@@ -29,17 +29,16 @@ class AddQuestion extends React.Component {
     } else {
       Bert.alert({ type: 'success', message: 'Add succeeded' });
       this.formRef.reset();
-      // eslint-disable-next-line
-      window.location.reload(true);
     }
   }
 
   /** On submit, insert the data. */
   submit(data) {
-    const { title, question, courseId, courseName } = data;
-    const dateCreated = Date.now();
-    const owner = Meteor.user().username;
-    Questions.insert({ title, question, owner, courseId, courseName, dateCreated }, this.insertCallback);
+    const { name, question, dateCreated, owner, courseId, courseName, _id } = data;
+    Questions.update(_id, { $set: { name: name, question: question, dateCreated: dateCreated,
+        owner: owner, courseId: courseId, courseName: courseName } }, this.insertCallback);
+    // eslint-disable-next-line
+    window.location.reload(true);
   }
 
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
@@ -53,22 +52,22 @@ class AddQuestion extends React.Component {
     };
 
     return (
-        <Modal trigger={<Button>Add Question</Button>} style={modalStyle.modal}>
-          <Modal.Header>Add Question</Modal.Header>
+        <Modal trigger={<a>(Edit Question)</a>} style={modalStyle.modal}>
+          <Modal.Header>Edit Question</Modal.Header>
           <Modal.Content>
             <AutoForm ref={(ref) => {
               this.formRef = ref;
-            }} schema={QuestionSchema} onSubmit={this.submit}>
+            }} schema={QuestionSchema} onSubmit={this.submit} model={this.props.question}>
               <Segment>
-                <TextField name='title'/>
+                <TextField name='name' label='Title'/>
                 <LongTextField name='question'
                                label='Description (enclose your code snippets in backticks `like this`)'/>
                 <SubmitField value='submit'/>
                 <ErrorsField/>
-                <HiddenField name='owner' value='fakeuser@foo.com'/>
-                <HiddenField name='courseId' value={this.props.courseId}/>
-                <HiddenField name='dateCreated' value={Date.now()}/>
-                <HiddenField name='courseName' value={this.props.courseName}/>
+                <HiddenField name='owner' value={this.props.question.owner}/>
+                <HiddenField name='courseId' value={this.props.question.courseId}/>
+                <HiddenField name='dateCreated' value={this.props.question.dateCreated}/>
+                <HiddenField name='courseName' value={this.props.question.courseName}/>
               </Segment>
             </AutoForm>
           </Modal.Content>
@@ -79,15 +78,15 @@ class AddQuestion extends React.Component {
   render() {
     return (
         <div>
-          {Meteor.user() ? this.renderModal() : ''}
+          {Meteor.user() && (Meteor.user().username === this.props.question.owner) ? this.renderModal() : ''}
         </div>
     );
   }
 }
 
-AddQuestion.propTypes = {
-  courseId: PropTypes.string.isRequired,
-  courseName: PropTypes.string.isRequired,
+EditQuestion.propTypes = {
+  question: PropTypes.object.isRequired,
+
 };
 
-export default AddQuestion;
+export default EditQuestion;

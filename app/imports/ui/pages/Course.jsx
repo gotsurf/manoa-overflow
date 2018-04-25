@@ -22,17 +22,30 @@ class Course extends React.Component {
     return (
         <Container>
           <Header as='h2'>{this.props.course.name}</Header>
-          <p>"{this.props.course.description}"</p>
-          <span style={{ float: 'left', marginRight: '15px' }}>
-            <Header as='h2'>Questions</Header>
-          </span>
-          <span>
-            <AddQuestion courseId={this.props.course._id} style={{ float: 'right' }}
-                         courseName={this.props.course.name}/>
-          </span>
+          <p>&quot;{this.props.course.description}&quot;</p>
+          {this.renderQuestionHeading()}
           <hr/>
           {this.props.questions.length > 0 ? this.renderQuestionList() : 'There are no questions to display.'}
         </Container>
+    );
+  }
+
+  renderQuestionHeading() {
+    if (Meteor.user()) {
+      return (
+          <div>
+          <span style={{ float: 'left', marginRight: '15px' }}>
+            <Header as='h2'>Questions</Header>
+          </span>
+            <span>
+          <AddQuestion courseId={this.props.course._id} style={{ float: 'right' }}
+                       courseName={this.props.course.name}/>
+          </span>
+          </div>
+      );
+    }
+    return (
+        <Header as='h2'>Questions</Header>
     );
   }
 
@@ -51,7 +64,7 @@ class Course extends React.Component {
                 <List.Item key={index}>
                   <Link to={`/question/${question._id}`}>
                     <List.Content>
-                      <List.Header as='a'>{question.title}</List.Header>
+                      <List.Header as='a'>{question.name}</List.Header>
                       <List.Description style={descriptionStyle}>
                         {question.question}
                       </List.Description>

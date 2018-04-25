@@ -1,11 +1,13 @@
 import React from 'react';
-import $ from 'jquery';
 import { Container, Header, Loader } from 'semantic-ui-react';
 import { Questions } from '/imports/api/question/question';
+import { Answers } from '/imports/api/answer/answer';
 import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
+import EditQuestion from '/imports/ui/components/EditQuestion';
+import AddAnswer from '/imports/ui/components/AddAnswer';
 
 class Question extends React.Component {
 
@@ -21,24 +23,60 @@ class Question extends React.Component {
 
     const date = this.props.question.dateCreated.toLocaleTimeString('en-us', options);
 
+    const currentUser = (Meteor.user() ? Meteor.user().username : '');
+
     return (
         <Container>
-          <Header as='h2'>
-            <Link to={`/course/${this.props.question.courseId}`}>{this.props.question.courseName}</Link>
-            {' > '}{this.props.question.title}
-          </Header>
-          <p>asked by <i>{this.props.question.owner}</i> on {date}</p>
-          <hr/>
-          <div className='question-body'>
-            {this.formatCodeSnippet()}
+          <div className='question' style={{ marginBottom: '50px' }}>
+            <Header as='h2'>
+              <Link to={`/course/${this.props.question.courseId}`}>{this.props.question.courseName}</Link>
+              {' > '}{this.props.question.name}
+            </Header>
+            <p>asked by <i>
+              {this.props.question.owner === currentUser ? 'you' : this.props.question.owner}
+            </i> on {date}</p>
+            <p>description: </p>
+            <div className='question-body' style={{ marginBottom: '25px' }}>
+              {this.formatCodeSnippet(this.props.question.question)}
+            </div>
+            <EditQuestion question={this.props.question}/>
           </div>
+          <div className='answer' style={{ marginBottom: '50px' }}>
+            <Header as='h2'>
+              {this.props.answers.length} {(this.props.answers.length === 1) ? 'Answer' : 'Answers'}
+            </Header>
+            {this.props.answers.map((answer) => this.renderAnswer(answer))}
+          </div>
+          <AddAnswer questionId={this.props.question._id}/>
         </Container>
     );
   }
 
-  formatCodeSnippet() {
+  renderAnswer(answer) {
+    const options = {
+      weekday: 'long', year: 'numeric', month: 'short',
+      day: 'numeric', hour: '2-digit', minute: '2-digit',
+    };
 
-    const descArray = this.props.question.question.split('`');
+    const date = answer.dateCreated.toLocaleTimeString('en-us', options);
+
+    const currentUser = (Meteor.user() ? Meteor.user().username : '');
+
+    return (
+        <div style={{ marginBottom: '25px' }}>
+          <p>On {date} <i>
+            {this.props.question.owner === currentUser ? 'you' : this.props.question.owner}
+          </i> said:</p>
+          <div className='answer-body'>
+            {this.formatCodeSnippet(answer.answer)}
+          </div>
+        </div>
+    );
+  }
+
+  formatCodeSnippet(snippet) {
+
+    const descArray = snippet.split('`');
 
     return (
         <div style={{ whiteSpace: 'pre-wrap' }}>
@@ -59,6 +97,7 @@ class Question extends React.Component {
 /** Require the presence of a Stuff document in the props object. Uniforms adds 'model' to the props, which we use. */
 Question.propTypes = {
   question: PropTypes.object.isRequired,
+  answers: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 };
 
@@ -68,8 +107,10 @@ export default withTracker(({ match }) => {
   const documentId = match.params._id;
   // Get access to Stuff documents.
   const subscription = Meteor.subscribe('Questions');
+  const subscription1 = Meteor.subscribe('Answers');
   return {
     question: Questions.findOne(documentId),
-    ready: subscription.ready(),
+    answers: Answers.find({ questionId: documentId }).fetch(),
+    ready: (subscription.ready() && subscription1.ready()),
   };
 })(Question);
