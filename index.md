@@ -1,8 +1,8 @@
 # Manoa Overflow
-http://manoaoverflow.meteorapp.com/
 
 by Matthew Lam, Jeffrey Wood and David Cole: https://gotsurf.github.io/
 
+You can see our app running <a href='http://manoaoverflow.meteorapp.com/'>here</a>
 
 
 ## Goals
@@ -18,7 +18,8 @@ by Matthew Lam, Jeffrey Wood and David Cole: https://gotsurf.github.io/
 -Students can navigate to a course and ask or answer questions pertaining to that course
 
 ## Milestone 1: Page Mockups
-https://github.com/gotsurf/manoa-overflow/projects/1
+<a href='https://github.com/gotsurf/manoa-overflow/projects/1'>
+                            https://github.com/gotsurf/manoa-overflow/projects/1</a>
 #### Landing
 
 <img src='app/public/images/m1/landing.png'/>
@@ -38,7 +39,8 @@ Each course page will have all questions pertaining to that particular course li
 Questions will have answers posted below. Both questions and answers have a voted rating out of 5 stars.
 
 ## Milestone 2: Functionality and Refined UI
-https://github.com/gotsurf/manoa-overflow/projects/2
+<a href='https://github.com/gotsurf/manoa-overflow/projects/2'>
+https://github.com/gotsurf/manoa-overflow/projects/2</a>
 #### Landing
 
 <img src='app/public/images/m2/Home.png'/>
