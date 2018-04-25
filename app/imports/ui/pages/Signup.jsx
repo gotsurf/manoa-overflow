@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Container, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
 import { Accounts } from 'meteor/accounts-base';
 
@@ -32,6 +32,7 @@ export default class Signup extends React.Component {
         // browserHistory.push('/login');
       }
     });
+    return <Redirect to={'/'}/>;
   }
 
   /** Display the signup form. */
