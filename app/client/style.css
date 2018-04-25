@@ -41,3 +41,13 @@
     top: 0px;
   }
 }
+
+code{
+  background-color: lightgrey;
+}
+
+.code-snippet{
+  background-color: lightgrey;
+  display: inline-block;
+  padding: 10px;
+}

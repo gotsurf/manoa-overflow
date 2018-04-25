@@ -2,7 +2,10 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { List, Header, Container, Loader } from 'semantic-ui-react';
 import { Courses } from '/imports/api/course/course';
+import { Questions } from '/imports/api/question/question';
 import { withTracker } from 'meteor/react-meteor-data';
+import AddQuestion from '/imports/ui/components/AddQuestion';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 /** Renders a table containing all of questions you have asked. */
@@ -19,12 +22,44 @@ class Course extends React.Component {
     return (
         <Container>
           <Header as='h2'>{this.props.course.name}</Header>
-          <p>{this.props.course.description}</p>
+          <p>"{this.props.course.description}"</p>
+          <span style={{ float: 'left', marginRight: '15px' }}>
+            <Header as='h2'>Questions</Header>
+          </span>
+          <span>
+            <AddQuestion courseId={this.props.course._id} style={{ float: 'right' }}
+                         courseName={this.props.course.name}/>
+          </span>
           <hr/>
-          <Header as='h3'>Questions</Header>
-          <List divided relaxed>
-          </List>
+          {this.props.questions.length > 0 ? this.renderQuestionList() : 'There are no questions to display.'}
         </Container>
+    );
+  }
+
+  renderQuestionList() {
+
+    const descriptionStyle = {
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    };
+
+    return (
+        <List divided relaxed>
+          {this.props.questions.map(function (question, index) {
+            return (
+                <List.Item key={index}>
+                  <Link to={`/question/${question._id}`}>
+                    <List.Content>
+                      <List.Header as='a'>{question.title}</List.Header>
+                      <List.Description style={descriptionStyle}>
+                        {question.question}
+                      </List.Description>
+                    </List.Content>
+                  </Link>
+                </List.Item>);
+          })}
+        </List>
     );
   }
 }
@@ -32,6 +67,7 @@ class Course extends React.Component {
 /** Require the presence of a Stuff document in the props object. Uniforms adds 'model' to the props, which we use. */
 Course.propTypes = {
   course: PropTypes.object.isRequired,
+  questions: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 };
 
@@ -41,9 +77,10 @@ export default withTracker(({ match }) => {
   const documentId = match.params._id;
   // Get access to Stuff documents.
   const subscription = Meteor.subscribe('Courses');
+  const qSubs = Meteor.subscribe('Questions');
   return {
     course: Courses.findOne(documentId),
-    ready: subscription.ready(),
+    questions: Questions.find({ courseId: documentId }).fetch(),
+    ready: (subscription.ready() && qSubs.ready()),
   };
 })(Course);
-

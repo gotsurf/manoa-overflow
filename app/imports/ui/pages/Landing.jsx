@@ -4,34 +4,16 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Link } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import { List, Container, Image, Tab } from 'semantic-ui-react';
+import CourseList from '/imports/ui/components/CourseList';
 import { Courses } from '../../api/course/course.js';
 
 /** A simple static component to render some text for the landing page. */
 class Landing extends React.Component {
 
-  renderCourses() {
-
-    return (
-        <List divided relaxed>
-          {this.props.courses.map(function (course, index) {
-            return (
-                <List.Item key={index}>
-                  <Link to={`/course/${course._id}`}>
-                    <List.Content>
-                      <List.Header>{course.name}</List.Header>
-                      <List.Description>{course.description}</List.Description>
-                    </List.Content>
-                  </Link>
-                </List.Item>);
-          })}
-        </List>
-    );
-  }
-
   render() {
     const panes = [
 
-      { menuItem: 'Courses', render: () => <Tab.Pane>{this.renderCourses()}</Tab.Pane> },
+      { menuItem: 'Courses', render: () => <Tab.Pane><CourseList courses={this.props.courses}/></Tab.Pane> },
       { menuItem: 'Questions', render: () => <Tab.Pane>List of all questions, sorted by date.</Tab.Pane> },
     ];
 
