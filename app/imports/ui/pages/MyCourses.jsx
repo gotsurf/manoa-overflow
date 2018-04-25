@@ -1,5 +1,7 @@
 import React from 'react';
 // import { Meteor } from 'meteor/meteor';
+import PropTypes from 'prop-types';
+import { withRouter, Link } from 'react-router-dom';
 import { List, Header, Container } from 'semantic-ui-react';
 // import { withTracker } from 'meteor/react-meteor-data';
 // import PropTypes from 'prop-types';
