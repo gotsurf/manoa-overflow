@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Link } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
-import { List, Container, Image, Tab } from 'semantic-ui-react';
+import { Container, Image, Tab } from 'semantic-ui-react';
 import CourseList from '/imports/ui/components/CourseList';
+import QuestionList from '/imports/ui/components/QuestionList';
 import { Courses } from '../../api/course/course.js';
+import { Questions } from '../../api/question/question.js';
 
 /** A simple static component to render some text for the landing page. */
 class Landing extends React.Component {
@@ -14,7 +15,7 @@ class Landing extends React.Component {
     const panes = [
 
       { menuItem: 'Courses', render: () => <Tab.Pane><CourseList courses={this.props.courses}/></Tab.Pane> },
-      { menuItem: 'Questions', render: () => <Tab.Pane>List of all questions, sorted by date.</Tab.Pane> },
+      { menuItem: 'Questions', render: () => <Tab.Pane><QuestionList questions={this.props.questions}/></Tab.Pane> },
     ];
 
     return (
@@ -33,14 +34,17 @@ class Landing extends React.Component {
 
 Landing.propTypes = {
   courses: PropTypes.array.isRequired,
+  questions: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 };
 
 export default withTracker(function () {
   // Get access to Stuff documents.
   const subscription = Meteor.subscribe('Courses');
+  const subscription2 = Meteor.subscribe('Questions');
   return {
     courses: Courses.find({}).fetch(),
-    ready: subscription.ready(),
+    questions: Questions.find({}).fetch(),
+    ready: (subscription.ready() && subscription2.ready())
   };
 })(Landing);
