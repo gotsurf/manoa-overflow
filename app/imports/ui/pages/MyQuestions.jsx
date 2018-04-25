@@ -31,7 +31,11 @@ class MyQuestions extends React.Component {
               {question.name}
             </Link>
           </Table.Cell>
-          <Table.Cell>{question.courseName}</Table.Cell>
+          <Table.Cell>
+            <Link to={`/course/${question.courseId}`}>
+              {question.courseName}
+            </Link>
+          </Table.Cell>
           <Table.Cell>{date}</Table.Cell>
         </Table.Row>
 
