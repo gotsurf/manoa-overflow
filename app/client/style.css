@@ -51,3 +51,13 @@ code{
   display: inline-block;
   padding: 10px;
 }
+
+.question-body{
+  padding: 15px;
+  background-color: #D3F8DE;
+}
+
+.answer-body{
+  padding: 15px;
+  background-color: #D3F8DE;
+}
