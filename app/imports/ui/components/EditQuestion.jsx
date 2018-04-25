@@ -29,15 +29,16 @@ class EditQuestion extends React.Component {
     } else {
       Bert.alert({ type: 'success', message: 'Add succeeded' });
       this.formRef.reset();
-      // eslint-disable-next-line
-      window.location.reload(true);
     }
   }
 
   /** On submit, insert the data. */
   submit(data) {
-    const { title, question, dateCreated, owner, courseId, courseName, _id } = data;
-    Questions.update(_id, { title, question, owner, courseId, courseName, dateCreated }, this.insertCallback);
+    const { name, question, dateCreated, owner, courseId, courseName, _id } = data;
+    Questions.update(_id, { $set: { name: name, question: question, dateCreated: dateCreated,
+        owner: owner, courseId: courseId, courseName: courseName } }, this.insertCallback);
+    // eslint-disable-next-line
+    window.location.reload(true);
   }
 
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
@@ -56,14 +57,14 @@ class EditQuestion extends React.Component {
           <Modal.Content>
             <AutoForm ref={(ref) => {
               this.formRef = ref;
-            }} schema={QuestionSchema} onSubmit={this.submit} model={this.props.doc}>
+            }} schema={QuestionSchema} onSubmit={this.submit} model={this.props.question}>
               <Segment>
-                <TextField name='title'/>
-                <LongTextField name='edit question'
+                <TextField name='name' label='Title'/>
+                <LongTextField name='question'
                                label='Description (enclose your code snippets in backticks `like this`)'/>
                 <SubmitField value='submit'/>
                 <ErrorsField/>
-                <HiddenField name='owner' value='fakeuser@foo.com'/>
+                <HiddenField name='owner' value={this.props.question.owner}/>
                 <HiddenField name='courseId' value={this.props.question.courseId}/>
                 <HiddenField name='dateCreated' value={this.props.question.dateCreated}/>
                 <HiddenField name='courseName' value={this.props.question.courseName}/>

@@ -51,7 +51,7 @@ class Course extends React.Component {
                 <List.Item key={index}>
                   <Link to={`/question/${question._id}`}>
                     <List.Content>
-                      <List.Header as='a'>{question.title}</List.Header>
+                      <List.Header as='a'>{question.name}</List.Header>
                       <List.Description style={descriptionStyle}>
                         {question.question}
                       </List.Description>

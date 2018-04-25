@@ -25,17 +25,14 @@ class Question extends React.Component {
         <Container>
           <Header as='h2'>
             <Link to={`/course/${this.props.question.courseId}`}>{this.props.question.courseName}</Link>
-            {' > '}{this.props.question.title}
+            {' > '}{this.props.question.name}
           </Header>
           <p>asked by <i>{this.props.question.owner}</i> on {date}</p>
-          <EditQuestion questions={this.props.question}/>
+          <EditQuestion question={this.props.question}/>
           <hr/>
           <div className='question-body'>
-          {this.formatCodeSnippet()}
-        </div>
-          <span>
-            <EditQuestion question={this.props.question}/>
-          </span>
+            {this.formatCodeSnippet()}
+          </div>
         </Container>
     );
   }

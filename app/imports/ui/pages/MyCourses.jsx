@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { List, Header, Container } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { Courses } from '../../api/course/course.js';
 
 /** Renders a table containing all of questions you have asked. */
@@ -18,12 +19,15 @@ class MyCourses extends React.Component {
           <Header as='h2'> My Courses </Header>
           <List divided relaxed>
             {this.props.courses.map(function (course, index) {
-              return (<List.Item key={index}>
-                <List.Content>
-                  <List.Header as='a' href='/#/examplecourse'>{course.name}</List.Header>
-                  <List.Description as='a' href='/#/examplecourse'>{course.description}</List.Description>
-                </List.Content>
-              </List.Item>);
+              return (
+                  <List.Item key={index}>
+                    <Link to={`/course/${course._id}`}>
+                      <List.Content>
+                        <List.Header as='a'>{course.name}</List.Header>
+                        <List.Description>{course.description}</List.Description>
+                      </List.Content>
+                    </Link>
+                  </List.Item>);
             })}
           </List>
         </Container>

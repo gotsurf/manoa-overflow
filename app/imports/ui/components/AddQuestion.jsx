@@ -36,10 +36,10 @@ class AddQuestion extends React.Component {
 
   /** On submit, insert the data. */
   submit(data) {
-    const { title, question, courseId, courseName } = data;
+    const { name, question, courseId, courseName } = data;
     const dateCreated = Date.now();
     const owner = Meteor.user().username;
-    Questions.insert({ title, question, owner, courseId, courseName, dateCreated }, this.insertCallback);
+    Questions.insert({ name, question, owner, courseId, courseName, dateCreated }, this.insertCallback);
   }
 
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
@@ -60,7 +60,7 @@ class AddQuestion extends React.Component {
               this.formRef = ref;
             }} schema={QuestionSchema} onSubmit={this.submit}>
               <Segment>
-                <TextField name='title'/>
+                <TextField name='name' label='Title'/>
                 <LongTextField name='question'
                                label='Description (enclose your code snippets in backticks `like this`)'/>
                 <SubmitField value='submit'/>

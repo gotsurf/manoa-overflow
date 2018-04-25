@@ -28,7 +28,7 @@ class MyQuestions extends React.Component {
         <Table.Row>
           <Table.Cell>
             <Link to={`/question/${question._id}`}>
-              {question.title}
+              {question.name}
             </Link>
           </Table.Cell>
           <Table.Cell>{question.courseName}</Table.Cell>
