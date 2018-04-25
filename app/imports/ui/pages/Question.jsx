@@ -21,13 +21,17 @@ class Question extends React.Component {
 
     const date = this.props.question.dateCreated.toLocaleTimeString('en-us', options);
 
+    const currentUser = (Meteor.user() ? Meteor.user().username : '');
+
     return (
         <Container>
           <Header as='h2'>
             <Link to={`/course/${this.props.question.courseId}`}>{this.props.question.courseName}</Link>
             {' > '}{this.props.question.name}
           </Header>
-          <p>asked by <i>{this.props.question.owner}</i> on {date}</p>
+          <p>asked by <i>
+            {this.props.question.owner === currentUser ? 'you' : this.props.question.owner}
+          </i> on {date}</p>
           <EditQuestion question={this.props.question}/>
           <hr/>
           <div className='question-body'>
