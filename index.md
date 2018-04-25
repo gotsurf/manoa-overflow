@@ -1,4 +1,9 @@
 # Manoa Overflow
+http://manoaoverflow.meteorapp.com/
+
+by Matthew Lam, Jeffrey Wood and David Cole: https://gotsurf.github.io/
+
+
 
 ## Goals
 
@@ -13,7 +18,7 @@
 -Students can navigate to a course and ask or answer questions pertaining to that course
 
 ## Milestone 1: Page Mockups
-
+https://github.com/gotsurf/manoa-overflow/projects/1
 #### Landing
 
 <img src='app/public/images/m1/landing.png'/>
@@ -33,7 +38,7 @@ Each course page will have all questions pertaining to that particular course li
 Questions will have answers posted below. Both questions and answers have a voted rating out of 5 stars.
 
 ## Milestone 2: Functionality and Refined UI
-
+https://github.com/gotsurf/manoa-overflow/projects/2
 #### Landing
 
 <img src='app/public/images/m2/Home.png'/>
