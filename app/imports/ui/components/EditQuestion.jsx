@@ -78,7 +78,7 @@ class EditQuestion extends React.Component {
   render() {
     return (
         <div>
-          {Meteor.user().username === this.props.question.owner ? this.renderModal() : ''}
+          {Meteor.user() && (Meteor.user().username === this.props.question.owner) ? this.renderModal() : ''}
         </div>
     );
   }

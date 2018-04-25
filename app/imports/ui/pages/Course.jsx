@@ -23,16 +23,29 @@ class Course extends React.Component {
         <Container>
           <Header as='h2'>{this.props.course.name}</Header>
           <p>"{this.props.course.description}"</p>
-          <span style={{ float: 'left', marginRight: '15px' }}>
-            <Header as='h2'>Questions</Header>
-          </span>
-          <span>
-            <AddQuestion courseId={this.props.course._id} style={{ float: 'right' }}
-                         courseName={this.props.course.name}/>
-          </span>
+          {this.renderQuestionHeading()}
           <hr/>
           {this.props.questions.length > 0 ? this.renderQuestionList() : 'There are no questions to display.'}
         </Container>
+    );
+  }
+
+  renderQuestionHeading() {
+    if (Meteor.user()) {
+      return (
+          <div>
+          <span style={{ float: 'left', marginRight: '15px' }}>
+            <Header as='h2'>Questions</Header>
+          </span>
+            <span>
+          <AddQuestion courseId={this.props.course._id} style={{ float: 'right' }}
+                       courseName={this.props.course.name}/>
+          </span>
+          </div>
+      );
+    }
+    return (
+        <Header as='h2'>Questions</Header>
     );
   }
 

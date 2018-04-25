@@ -2,23 +2,55 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Container, Table, Header, Loader } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
+import { Answers } from '/imports/api/answer/answer';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { Courses } from '../../api/course/course';
+import { Questions } from '../../api/question/question';
 
 /** Renders a table containing all of questions you have asked. */
-export default class MyAnswers extends React.Component {
+class MyAnswers extends React.Component {
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
-    // return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
-    return this.renderPage();
+    return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
   }
 
   renderAnswer(answer) {
+
+    const question = Questions.findOne(answer.questionId);
+
+    const course = Courses.findOne(question.courseId);
+
+    const descriptionStyle = {
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    };
+
+    const options = {
+      weekday: 'long', year: 'numeric', month: 'short',
+      day: 'numeric', hour: '2-digit', minute: '2-digit',
+    };
+
+    const date = answer.dateCreated.toLocaleTimeString('en-us', options);
+
     return (
         <Table.Row>
-          <Table.Cell>{answer.question}</Table.Cell>
-          <Table.Cell>{answer.course}</Table.Cell>
-          <Table.Cell>{answer.date}</Table.Cell>
+          <Table.Cell>
+            <Link to={`/question/${question._id}`}>
+              {question.name}
+            </Link>
+          </Table.Cell>
+          <Table.Cell style={descriptionStyle}>
+            {answer.answer}
+          </Table.Cell>
+          <Table.Cell>
+            <Link to={`/course/${course._id}`}>
+              {course.name}
+            </Link>
+          </Table.Cell>
+          <Table.Cell>{date}</Table.Cell>
         </Table.Row>
     );
   }
@@ -26,12 +58,7 @@ export default class MyAnswers extends React.Component {
   /** Render the page once subscriptions have been received. */
   renderPage() {
 
-    const answers = [
-      { course: 'ICS 110', question: 'how do I make cool stuff', date: Date.now(), answers: 3 },
-      { course: 'ICS 311', question: 'how do I not die', date: Date.now() - 2, answers: 4 },
-      { course: 'ICS 314', question: 'how do I cheat on WOD', date: Date.now() - 3, answers: 2 },
-      { course: 'ICS 211', question: 'how do I make java beanz', date: Date.now() - 4, answers: 1 },
-    ];
+    const answers = this.props.answers;
 
     return (
         <Container>
@@ -40,6 +67,7 @@ export default class MyAnswers extends React.Component {
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Question</Table.HeaderCell>
+                <Table.HeaderCell>Answer</Table.HeaderCell>
                 <Table.HeaderCell>Course</Table.HeaderCell>
                 <Table.HeaderCell>Date</Table.HeaderCell>
               </Table.Row>
@@ -52,3 +80,19 @@ export default class MyAnswers extends React.Component {
     );
   }
 }
+
+MyAnswers.propTypes = {
+  answers: PropTypes.array.isRequired,
+  ready: PropTypes.bool.isRequired,
+};
+
+export default withTracker(function () {
+  // Get access to Stuff documents.
+  const subscription = Meteor.subscribe('Answers');
+  const subscription1 = Meteor.subscribe('Questions');
+  const subscription2 = Meteor.subscribe('Courses');
+  return {
+    answers: Answers.find({ owner: (Meteor.user() ? Meteor.user().username : '') }).fetch(),
+    ready: (subscription.ready() && subscription1.ready() && subscription2.ready()),
+  };
+})(MyAnswers);
