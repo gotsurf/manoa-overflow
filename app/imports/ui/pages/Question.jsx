@@ -6,6 +6,7 @@ import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
+import EditQuestion from '/imports/ui/components/EditQuestion';
 
 class Question extends React.Component {
 
@@ -28,10 +29,14 @@ class Question extends React.Component {
             {' > '}{this.props.question.title}
           </Header>
           <p>asked by <i>{this.props.question.owner}</i> on {date}</p>
+          <EditQuestion questions={this.props.question}/>
           <hr/>
           <div className='question-body'>
-            {this.formatCodeSnippet()}
-          </div>
+          {this.formatCodeSnippet()}
+        </div>
+          <span>
+            <EditQuestion question={this.props.question}/>
+          </span>
         </Container>
     );
   }
