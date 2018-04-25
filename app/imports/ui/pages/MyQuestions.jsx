@@ -3,6 +3,10 @@ import { Meteor } from 'meteor/meteor';
 import { Container, Table, Header, Loader } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
+import { Questions } from '../../api/question/question.js';
+import { Courses } from '../../api/course/course';
+import QuestionList from '/imports/ui/components/QuestionList';
+
 
 /** Renders a table containing all of questions you have asked. */
 export default class MyQuestions extends React.Component {
@@ -19,20 +23,12 @@ export default class MyQuestions extends React.Component {
           <Table.Cell>{question.title}</Table.Cell>
           <Table.Cell>{question.course}</Table.Cell>
           <Table.Cell>{question.date}</Table.Cell>
-          <Table.Cell>{question.answers}</Table.Cell>
         </Table.Row>
     );
   }
 
   /** Render the page once subscriptions have been received. */
   renderPage() {
-
-    const questions = [
-      {course: 'ICS 110', title: 'how do I make cool stuff', date: Date.now(), answers: 3},
-      {course: 'ICS 311', title: 'how do I not die', date: Date.now()-2, answers: 4},
-      {course: 'ICS 314', title: 'how do I cheat on WOD', date: Date.now()-3, answers: 2},
-      {course: 'ICS 211', title: 'how do I make java beanz', date: Date.now()-4, answers: 1},
-    ];
 
     return (
         <Container>
@@ -43,14 +39,27 @@ export default class MyQuestions extends React.Component {
                 <Table.HeaderCell>Question</Table.HeaderCell>
                 <Table.HeaderCell>Course</Table.HeaderCell>
                 <Table.HeaderCell>Date Created</Table.HeaderCell>
-                <Table.HeaderCell>Answers</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>
-              {questions.map((question) => this.renderQuestion(question))}
+              {this.props.questions.map((question) => this.renderQuestion(question))}
             </Table.Body>
           </Table>
         </Container>
     );
   }
 }
+
+Questions.propTypes = {
+questions: PropTypes.array.isRequired,
+    ready: PropTypes.bool.isRequired,
+};
+
+export default withTracker(function () {
+  // Get access to Stuff documents.
+  const subscription2 = Meteor.subscribe('Questions');
+  return {
+    questions: Questions.find({ owner: Meteor.user().username}).fetch(),
+    ready: subscription2.ready()
+  };
+})(Questions);
