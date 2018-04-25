@@ -9,6 +9,7 @@ const Ratings = new Mongo.Collection('Ratings');
 const RatingSchema = new SimpleSchema({
   typeId: String,
   type: String,
+  upvote: String,
 }, { tracker: Tracker });
 
 /** Attach this schema to the collection. */
