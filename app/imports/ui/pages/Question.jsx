@@ -65,7 +65,7 @@ class Question extends React.Component {
     return (
         <div style={{ marginBottom: '25px' }}>
           <p>On {date} <i>
-            {this.props.question.owner === currentUser ? 'you' : this.props.question.owner}
+            {this.props.question.owner === currentUser ? 'you' : answer.owner}
           </i> said:</p>
           <div className='answer-body'>
             {this.formatCodeSnippet(answer.answer)}

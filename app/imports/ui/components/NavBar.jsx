@@ -17,14 +17,15 @@ class NavBar extends React.Component {
                  src='/images/ManoaOverflow.png'/>
           </Menu.Item>
           {this.props.currentUser ? (
-          [<Menu.Item as={NavLink} activeClassName="active" exact to="/my-courses" key='myCourses'>My Courses</Menu.Item>,
-          <Menu.Item as={NavLink} activeClassName="active" exact to="/my-questions" key='myQuestions'>My
-            Questions</Menu.Item>,
-          <Menu.Item as={NavLink} activeClassName="active" exact to="/my-answers" key='myAnswers'>My Answers</Menu.Item>]
-              ) : ''}
+              [<Menu.Item as={NavLink} activeClassName="active" exact to="/my-courses" key='myCourses'>My
+                Courses</Menu.Item>,
+                <Menu.Item as={NavLink} activeClassName="active" exact to="/my-questions" key='myQuestions'>My
+                  Questions</Menu.Item>,
+                <Menu.Item as={NavLink} activeClassName="active" exact to="/my-answers" key='myAnswers'>My
+                  Answers</Menu.Item>]
+          ) : ''}
           {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
-              <div className="ui left item"><Menu.Item as={NavLink} activeClassName="active" exact to="/admin"
-                                                       key='admin'>Admin</Menu.Item></div>
+              ''
           ) : ''}
           <Menu.Item position="right">
             {this.props.currentUser === '' ? (
