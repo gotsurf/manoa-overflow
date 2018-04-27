@@ -1,26 +1,19 @@
 import React from 'react';
-import { Questions, QuestionSchema } from '/imports/api/question/question';
-import { Segment, Modal, Button } from 'semantic-ui-react';
-import AutoForm from 'uniforms-semantic/AutoForm';
-import TextField from 'uniforms-semantic/TextField';
-import SubmitField from 'uniforms-semantic/SubmitField';
-import HiddenField from 'uniforms-semantic/HiddenField';
-import ErrorsField from 'uniforms-semantic/ErrorsField';
-import LongTextField from 'uniforms-semantic/LongTextField';
+import { Ratings } from '/imports/api/rating/rating';
 import { Bert } from 'meteor/themeteorchef:bert';
 import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
-import { Ratings} from '../../api/rating/rating';
+import { withTracker } from 'meteor/react-meteor-data';
+import { Icon } from 'semantic-ui-react';
 
 class Voting extends React.Component {
 
   /** Bind 'this' so that a ref to the Form can be saved in formRef and communicated between render() and submit(). */
   constructor(props) {
     super(props);
-    this.submit = this.submit.bind(this);
     this.render = this.render.bind(this);
+    this.submit = this.submit.bind(this);
     this.insertCallback = this.insertCallback.bind(this);
-    this.formRef = null;
   }
 
   /** Notify the user of the results of the submit. If successful, clear the form. */
@@ -34,24 +27,68 @@ class Voting extends React.Component {
   }
 
   /** On submit, insert the data. */
-  submit(data) {
-    const { typeId, type, userId, upvote,  } = data;
-    Ratings.insert( data );
-    // eslint-disable-next-line
-    window.location.reload(true);
+  submit(typeId, type, userId, upvote) {
+    Ratings.insert(typeId, type, userId, upvote);
   }
+
+  upVote() {
+    const rating = this.hasRating();
+    if (rating && !rating.upVote) {
+      Ratings.remove(rating._id);
+    } else if (Meteor.user() && !rating) {
+      Ratings.insert({ typeId: this.props.typeId,
+        type: this.props.type, userId: Meteor.user()._id, upvote: true });
+    }
+    return 0;
+  }
+
+  downVote() {
+    return 0;
+  }
+
+  hasRating() {
+    if (Meteor.user()) {
+      const userId = Meteor.user()._id;
+      return Ratings.find({ userId: userId, typeId: this.props.typeId }).fetch()[0];
+    }
+    return 0;
+  }
+
+  renderVoting() {
+    return (
+        <div>
+          <span style={{ float: 'left' }}>
+            <Icon name='thumbs up' onClick={this.upVote()}/>
+          </span>
+          <span>
+            <Icon name='thumbs down'/>
+          </span>
+        </div>
+    );
+  }
+
   render() {
     return (
         <div>
-          {Meteor.user() && (Meteor.user().username === this.props.question.owner) ? this.renderModal() : ''}
+          <div className="counter">
+            Rating: {0}
+          </div>
+          {this.renderVoting()}
         </div>
     );
   }
 }
 
 Voting.propTypes = {
-  questionId: PropTypes.string.isRequired,
-
+  typeId: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
-export default Voting;
+export default withTracker(function () {
+  // Get access to Stuff documents.
+  const subscription = Meteor.subscribe('Ratings');
+  return {
+    ready: subscription.ready(),
+  };
+})(Voting);
+

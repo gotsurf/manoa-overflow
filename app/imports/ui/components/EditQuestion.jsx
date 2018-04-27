@@ -1,6 +1,6 @@
 import React from 'react';
 import { Questions, QuestionSchema } from '/imports/api/question/question';
-import { Segment, Modal, Button } from 'semantic-ui-react';
+import { Segment, Modal } from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import TextField from 'uniforms-semantic/TextField';
 import SubmitField from 'uniforms-semantic/SubmitField';
