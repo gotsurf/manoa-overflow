@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Header, Loader } from 'semantic-ui-react';
+import { Container, Header, Loader, Grid } from 'semantic-ui-react';
 import { Questions } from '/imports/api/question/question';
 import { Answers } from '/imports/api/answer/answer';
 import { Meteor } from 'meteor/meteor';
@@ -35,11 +35,17 @@ class Question extends React.Component {
             <p>asked by <i>
               {this.props.question.owner === currentUser ? 'you' : this.props.question.owner}
             </i> on {date}</p>
-            <p>description: </p>
-            <div className='question-body' style={{ marginBottom: '25px' }}>
-              {this.formatCodeSnippet(this.props.question.question)}
-            </div>
-            <EditQuestion question={this.props.question}/>
+            <Grid>
+              <Grid.Column width={2}>
+              </Grid.Column>
+              <Grid.Column width={10}>
+                <p>description: </p>
+                <div className='question-body' style={{ marginBottom: '25px' }}>
+                  {this.formatCodeSnippet(this.props.question.question)}
+                </div>
+                <EditQuestion question={this.props.question}/>
+              </Grid.Column>
+            </Grid>
           </div>
           <div className='answer' style={{ marginBottom: '50px' }}>
             <Header as='h2'>
@@ -67,9 +73,15 @@ class Question extends React.Component {
           <p>On {date} <i>
             {answer.owner === currentUser ? 'you' : answer.owner}
           </i> said:</p>
-          <div className='answer-body'>
-            {this.formatCodeSnippet(answer.answer)}
-          </div>
+          <Grid>
+            <Grid.Column width={2}>
+            </Grid.Column>
+            <Grid.Column width={10}>
+              <div className='answer-body'>
+                {this.formatCodeSnippet(answer.answer)}
+              </div>
+            </Grid.Column>
+          </Grid>
         </div>
     );
   }
