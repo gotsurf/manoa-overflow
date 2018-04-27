@@ -74,7 +74,12 @@ class MyAnswers extends React.Component {
               </Table.Row>
             </Table.Header>
             <Table.Body>
-              {answers.map((answer) => this.renderAnswer(answer))}
+              {answers.length > 0 ?
+                answers.map((answer) => this.renderAnswer(answer)):
+                  (<div style={{ padding: '15px' }}>
+                    <p>No answers to display</p>
+                  </div>)
+              }
             </Table.Body>
           </Table>
         </Container>

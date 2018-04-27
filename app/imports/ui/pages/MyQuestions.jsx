@@ -57,7 +57,12 @@ class MyQuestions extends React.Component {
               </Table.Row>
             </Table.Header>
             <Table.Body>
-              {this.props.questions.map((question) => this.renderQuestion(question))}
+              {this.props.questions.length > 0 ?
+                this.props.questions.map((question) => this.renderQuestion(question)) :
+                  (<div style={{ padding: '15px' }}>
+                    <p>No questions to display</p>
+                  </div>)
+              }
             </Table.Body>
           </Table>
         </Container>
