@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
-import { Container, Tab } from 'semantic-ui-react';
+import { Container, Tab, Loader } from 'semantic-ui-react';
 import CourseList from '/imports/ui/components/CourseList';
 import QuestionList from '/imports/ui/components/QuestionList';
 import Logo from '/imports/ui/components/Logo';
@@ -13,10 +13,22 @@ import { Questions } from '../../api/question/question.js';
 class Landing extends React.Component {
 
   render() {
+    return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
+  }
+
+  renderPage() {
     const panes = [
 
-      { menuItem: 'Courses', render: () => <Tab.Pane><CourseList courses={this.props.courses}/></Tab.Pane> },
-      { menuItem: 'Questions', render: () => <Tab.Pane><QuestionList questions={this.props.questions}/></Tab.Pane> },
+      {
+        menuItem: 'Courses', render: () => (<Tab.Pane><CourseList
+            courses={this.props.courses}
+            ready={this.props.ready}/></Tab.Pane>),
+      },
+      {
+        menuItem: 'Questions', render: () => (<Tab.Pane><QuestionList
+            questions={this.props.questions}
+            ready={this.props.ready}/></Tab.Pane>),
+      },
     ];
 
     const animationStyle = {
@@ -62,6 +74,6 @@ export default withTracker(function () {
   return {
     courses: Courses.find({}).fetch(),
     questions: Questions.find({}).fetch(),
-    ready: (subscription.ready() && subscription2.ready())
+    ready: (subscription.ready() && subscription2.ready()),
   };
 })(Landing);

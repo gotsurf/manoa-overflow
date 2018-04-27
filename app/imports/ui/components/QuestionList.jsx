@@ -31,6 +31,10 @@ export default class QuestionList extends React.Component {
   };
 
   render() {
+    return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
+  }
+
+  renderPage() {
 
     const { isLoading, results } = this.state;
 
@@ -76,4 +80,5 @@ export default class QuestionList extends React.Component {
 
 QuestionList.propTypes = {
   questions: PropTypes.array.isRequired,
+  ready: PropTypes.bool.isRequired,
 };
