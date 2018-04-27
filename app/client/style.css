@@ -61,3 +61,28 @@ code{
   padding: 15px;
   background-color: #D3F8DE;
 }
+
+.tech-slideshow {
+  height: 200px;
+  max-width: 800px;
+  margin: auto;
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
+}
+
+.tech-slideshow .mover-1 {
+  height: 1200px;
+  width: 800px;
+  position: absolute;
+  transform: translate3d(0, 0, 0);
+  animation: moveSlideshow 8s linear infinite;
+}
+
+@keyframes moveSlideshow {
+  0%{
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(15%);
+  }
+}

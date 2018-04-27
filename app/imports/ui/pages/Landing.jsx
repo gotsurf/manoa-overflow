@@ -18,10 +18,20 @@ class Landing extends React.Component {
       { menuItem: 'Questions', render: () => <Tab.Pane><QuestionList questions={this.props.questions}/></Tab.Pane> },
     ];
 
+    const animationStyle = {
+      background: `url(${'/images/papers2.png'})`,
+      backgroundPosition: '20% 10%',
+      backgroundSize: '800px 1000px',
+      backgroundRepeat: 'no-repeat',
+    }
+
     return (
         <Container>
           <div id='welcome-logo'>
             <Image src='/images/WelcomeManoaOverflow.png' centered/>
+          </div>
+          <div className="tech-slideshow">
+            <div className="mover-1" style={animationStyle}></div>
           </div>
           <p>ManoaOverflow provides a platform for questions and answers specific to the UH Manoa ICS community.</p>
           <p>To view questions or ask questions pertaining to a course navigate to the course page below or browse all
