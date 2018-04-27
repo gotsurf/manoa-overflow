@@ -55,7 +55,11 @@ export default class CourseList extends React.Component {
                     <Link to={`/course/${course._id}`}>
                       <List.Content>
                         <List.Header as='a'>{course.name}</List.Header>
-                        <List.Description>{course.description}</List.Description>
+                        <List.Description>{course.description}
+                          <button class="tiny ui green right floated button">
+                            Add Course
+                          </button>
+                        </List.Description>
                       </List.Content>
                     </Link>
                   </List.Item>);
