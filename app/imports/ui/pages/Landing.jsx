@@ -39,9 +39,10 @@ class Landing extends React.Component {
             <div className="mover-1" style={animationStyle}></div>
           </div>
           <Logo/>
-          <p>ManoaOverflow provides a platform for questions and answers specific to the UH Manoa ICS community.</p>
-          <p>To view questions or ask questions pertaining to a course navigate to the course page below or browse all
-            questions.</p>
+          <p>ManoaOverflow provides a platform for technical questions and answers
+            specific to the UH Manoa ICS community and categorized by course number.</p>
+          <p>To view questions or ask questions pertaining to a course navigate to the course page below or click on
+            the questions tab to browse all questions.</p>
           <Tab panes={panes}/>
         </Container>
     );
