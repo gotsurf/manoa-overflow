@@ -9,7 +9,9 @@ const Ratings = new Mongo.Collection('Ratings');
 const RatingSchema = new SimpleSchema({
   typeId: String,
   type: String,
-  upvote: String,
+  userId: String,
+  /** true is an upvote, false is downvote, neutral the rating doesn't exist  */
+  upvote: Boolean,
 }, { tracker: Tracker });
 
 /** Attach this schema to the collection. */
