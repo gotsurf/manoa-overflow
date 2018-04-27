@@ -24,11 +24,18 @@ class Landing extends React.Component {
       backgroundPosition: '20% 10%',
       backgroundSize: '800px 1000px',
       backgroundRepeat: 'no-repeat',
-    }
+    };
+
+    const animationBack = {
+      background: `url(${'/images/university-of-hawaii-manoa.png'})`,
+      backgroundSize: '400px 400px',
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center',
+    };
 
     return (
         <Container>
-          <div className="tech-slideshow">
+          <div className="tech-slideshow" style={animationBack}>
             <div className="mover-1" style={animationStyle}></div>
           </div>
           <Logo/>
