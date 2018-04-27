@@ -18,6 +18,7 @@ class SubscribeToCourse extends React.Component {
     this.render = this.render.bind(this);
     this.insertCallback = this.insertCallback.bind(this);
     this.deleteCallback = this.deleteCallback.bind(this);
+    this.state = {};
     this.formRef = null;
   }
 
@@ -41,8 +42,7 @@ class SubscribeToCourse extends React.Component {
     } else {
       Bert.alert({ type: 'success', message: 'Unsubscribe succeeded' });
     }
-    // eslint-disable-next-line
-    window.location.reload(true);
+    this.setState({});
   }
 
   /** Notify the user of the results of the submit. If successful, clear the form. */
@@ -52,8 +52,7 @@ class SubscribeToCourse extends React.Component {
     } else {
       Bert.alert({ type: 'success', message: 'Subscribe succeeded' });
     }
-    // eslint-disable-next-line
-    window.location.reload(true);
+    this.setState({});
   }
 
   render() {

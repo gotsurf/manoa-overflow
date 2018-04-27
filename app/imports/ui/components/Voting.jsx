@@ -4,7 +4,7 @@ import { Bert } from 'meteor/themeteorchef:bert';
 import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Icon } from 'semantic-ui-react';
+import { Icon, Button } from 'semantic-ui-react';
 
 class Voting extends React.Component {
 
@@ -12,8 +12,8 @@ class Voting extends React.Component {
   constructor(props) {
     super(props);
     this.render = this.render.bind(this);
-    this.submit = this.submit.bind(this);
     this.insertCallback = this.insertCallback.bind(this);
+    this.state = {};
   }
 
   /** Notify the user of the results of the submit. If successful, clear the form. */
@@ -22,27 +22,39 @@ class Voting extends React.Component {
       Bert.alert({ type: 'danger', message: `Rate failed: ${error.message}` });
     } else {
       Bert.alert({ type: 'success', message: 'Rate succeeded' });
-      this.formRef.reset();
     }
-  }
-
-  /** On submit, insert the data. */
-  submit(typeId, type, userId, upvote) {
-    Ratings.insert(typeId, type, userId, upvote);
+    this.setState({});
   }
 
   upVote() {
     const rating = this.hasRating();
-    if (rating && !rating.upVote) {
-      Ratings.remove(rating._id);
-    } else if (Meteor.user() && !rating) {
-      Ratings.insert({ typeId: this.props.typeId,
-        type: this.props.type, userId: Meteor.user()._id, upvote: true });
-    }
+    if (rating && !rating.upvote) {
+      Ratings.remove(rating._id, this.insertCallback);
+    } else
+      if (Meteor.user() && !rating) {
+        Ratings.insert({
+          typeId: this.props.typeId,
+          type: this.props.type,
+          userId: Meteor.user()._id,
+          upvote: true,
+        }, this.insertCallback);
+      }
     return 0;
   }
 
   downVote() {
+    const rating = this.hasRating();
+    if (rating && rating.upvote) {
+      Ratings.remove(rating._id, this.insertCallback);
+    } else
+      if (Meteor.user() && !rating) {
+        Ratings.insert({
+          typeId: this.props.typeId,
+          type: this.props.type,
+          userId: Meteor.user()._id,
+          upvote: false,
+        }, this.insertCallback);
+      }
     return 0;
   }
 
@@ -58,20 +70,35 @@ class Voting extends React.Component {
     return (
         <div>
           <span style={{ float: 'left' }}>
-            <Icon name='thumbs up' onClick={this.upVote()}/>
+            <Button color='green' onClick={() => {
+              this.upVote();
+            }}>
+             <Icon name='thumbs up'/>
+            </Button>
           </span>
           <span>
-            <Icon name='thumbs down'/>
+            <Button color='red' onClick={() => {
+              this.downVote();
+            }}>
+              <Icon name='thumbs down'/>
+            </Button>
           </span>
         </div>
     );
   }
 
   render() {
+
+    const ratings = Ratings.find({ typeId: this.props.typeId }).fetch();
+    const upvotes = ratings.filter((r) => r.upvote === true).length;
+    const downvotes = ratings.length - upvotes;
+    const score = upvotes - downvotes;
+    const scoreStyle = (score < 0 ? { color: 'red' } : {});
+
     return (
         <div>
           <div className="counter">
-            Rating: {0}
+            Rating: <span style={scoreStyle}>{score}</span>
           </div>
           {this.renderVoting()}
         </div>

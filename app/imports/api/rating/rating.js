@@ -12,7 +12,7 @@ const RatingSchema = new SimpleSchema({
     type: String,
     allowedValues: ['Answer', 'Question'],
   },
-    userId: String,
+  userId: String,
   /** true is an upvote, false is downvote, neutral the rating doesn't exist  */
   upvote: Boolean,
 }, { tracker: Tracker });

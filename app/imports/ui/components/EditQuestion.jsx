@@ -20,6 +20,7 @@ class EditQuestion extends React.Component {
     this.render = this.render.bind(this);
     this.insertCallback = this.insertCallback.bind(this);
     this.formRef = null;
+    this.state = {};
   }
 
   /** Notify the user of the results of the submit. If successful, clear the form. */
@@ -38,7 +39,7 @@ class EditQuestion extends React.Component {
     Questions.update(_id, { $set: { name: name, question: question, dateCreated: dateCreated,
         owner: owner, courseId: courseId, courseName: courseName } }, this.insertCallback);
     // eslint-disable-next-line
-    window.location.reload(true);
+    this.setState({});
   }
 
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
