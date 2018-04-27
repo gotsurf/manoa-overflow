@@ -93,9 +93,9 @@ code{
 
 @keyframes moveSlideshow {
   0%{
-    transform: translateY(-85%);
+    transform: translateY(-100%);
   }
   100% {
-    transform: translateY(15%);
+    transform: translateY(35%);
   }
 }
