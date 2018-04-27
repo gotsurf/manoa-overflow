@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
-import { Container, Image, Tab } from 'semantic-ui-react';
+import { Container, Tab } from 'semantic-ui-react';
 import CourseList from '/imports/ui/components/CourseList';
 import QuestionList from '/imports/ui/components/QuestionList';
+import Logo from '/imports/ui/components/Logo';
 import { Courses } from '../../api/course/course.js';
 import { Questions } from '../../api/question/question.js';
 
@@ -27,12 +28,10 @@ class Landing extends React.Component {
 
     return (
         <Container>
-          <div id='welcome-logo'>
-            <Image src='/images/WelcomeManoaOverflow.png' centered/>
-          </div>
           <div className="tech-slideshow">
             <div className="mover-1" style={animationStyle}></div>
           </div>
+          <Logo/>
           <p>ManoaOverflow provides a platform for questions and answers specific to the UH Manoa ICS community.</p>
           <p>To view questions or ask questions pertaining to a course navigate to the course page below or browse all
             questions.</p>
