@@ -52,7 +52,7 @@ class EditQuestion extends React.Component {
     };
 
     return (
-        <Modal trigger={<a>(Edit Question)</a>} style={modalStyle.modal}>
+        <Modal trigger={<a style={{ float: 'right' }}>(Edit Question)</a>} style={modalStyle.modal}>
           <Modal.Header>Edit Question</Modal.Header>
           <Modal.Content>
             <AutoForm ref={(ref) => {
