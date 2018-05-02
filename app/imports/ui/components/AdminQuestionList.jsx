@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { List, Input, Loader } from 'semantic-ui-react';
 
 /** A simple static component to render some text for the landing page. */
-export default class CourseList extends React.Component {
+export default class AdminQuestionList extends React.Component {
 
   componentWillMount() {
     this.resetComponent();
@@ -21,11 +21,11 @@ export default class CourseList extends React.Component {
       if (this.state.value.length < 1) return this.resetComponent();
 
       const re = new RegExp(_.escapeRegExp(this.state.value), 'i');
-      const isMatch = result => re.test(result.name + result.description);
+      const isMatch = result => re.test(result.name + result.question);
 
       this.setState({
         isLoading: false,
-        results: _.filter(this.props.courses, isMatch),
+        results: _.filter(this.props.questions, isMatch),
       });
     }, 300);
   };
@@ -38,10 +38,16 @@ export default class CourseList extends React.Component {
 
     const { isLoading, results } = this.state;
 
-    let courses = this.props.courses;
+    const descriptionStyle = {
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    };
+
+    let questions = this.props.questions;
 
     if (results.length > 0) {
-      courses = results;
+      questions = results;
     }
 
     const listStyle = { height: '600px', overflowY: 'scroll' };
@@ -55,14 +61,13 @@ export default class CourseList extends React.Component {
           />
           {isLoading ? <Loader active>searching...</Loader> : ''}
           <List divided relaxed style={listStyle}>
-            {courses.map(function (course, index) {
+            {questions.map(function (question, index) {
               return (
                   <List.Item key={index}>
-                    <Link to={`/course/${course._id}`}>
+                    <Link to={`/question/${question._id}`}>
                       <List.Content>
-                        <List.Header as='a'>{course.name}</List.Header>
-                        <List.Description>{course.description}
-                        </List.Description>
+                        <List.Header as='a'>{question.name}</List.Header>
+                        <List.Description style={descriptionStyle}>{question.question}</List.Description>
                       </List.Content>
                     </Link>
                   </List.Item>);
@@ -73,7 +78,7 @@ export default class CourseList extends React.Component {
   }
 }
 
-CourseList.propTypes = {
-  courses: PropTypes.array.isRequired,
+AdminQuestionList.propTypes = {
+  questions: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 };
