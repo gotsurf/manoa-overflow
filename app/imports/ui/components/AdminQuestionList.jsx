@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
-import { List, Input, Loader } from 'semantic-ui-react';
+import { List, Input, Loader, Grid } from 'semantic-ui-react';
 import DeleteQuestion from '/imports/ui/components/DeleteQuestion';
 
 /** A simple static component to render some text for the landing page. */
@@ -65,15 +65,23 @@ export default class AdminQuestionList extends React.Component {
             {questions.map(function (question, index) {
               return (
                   <List.Item key={index}>
-                    <Link to={`/question/${question._id}`}>
-                      <List.Content>
-                        <List.Header as='a'>{question.name}</List.Header>
-                        <List.Description style={descriptionStyle}>
-                          {question.question}
+                    <Grid>
+                      <Grid.Column width={13}>
+                        <Link to={`/question/${question._id}`}>
+                          <List.Content>
+                            <List.Header as='a'>{question.name}</List.Header>
+                            <List.Description style={descriptionStyle}>
+                              {question.question}
+                            </List.Description>
+                          </List.Content>
+                        </Link>
+                      </Grid.Column>
+                      <Grid.Column width={3}>
+                        <div style={{ float: 'right' }}>
                           <DeleteQuestion questionId={question._id}/>
-                        </List.Description>
-                      </List.Content>
-                    </Link>
+                        </div>
+                      </Grid.Column>
+                    </Grid>
                   </List.Item>);
             })}
           </List>

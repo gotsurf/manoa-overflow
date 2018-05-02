@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Roles } from 'meteor/alanning:roles';
 import { Modal, Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
@@ -8,7 +9,6 @@ import { Answers } from '/imports/api/answer/answer';
 import _ from 'lodash';
 import { Ratings } from '../../api/rating/rating';
 import { Questions } from '../../api/question/question';
-
 
 class DeleteQuestion extends React.Component {
 
@@ -26,9 +26,16 @@ class DeleteQuestion extends React.Component {
           <Modal.Content>
             <p>Are you sure you want to delete this question?</p>
             <p>(Press Esc to Cancel)</p>
-            <Button onClick={() => {
-              this.deleteQ();
-            }}>Delete</Button>
+            {this.props.courseId ? (
+                    <Link to={`/course/${this.props.courseId}`}>
+                      <Button onClick={() => {
+                        this.deleteQ();
+                      }}>Delete</Button>
+                    </Link>
+                ) :
+                (<Button onClick={() => {
+                  this.deleteQ();
+                }}>Delete</Button>)}
           </Modal.Content>
         </Modal>
     );
@@ -48,8 +55,6 @@ class DeleteQuestion extends React.Component {
       Ratings.remove(rating._id);
     });
     Questions.remove(this.props.questionId);
-    // eslint-disable-next-line
-    window.location.href = '/';
   }
 
   render() {
