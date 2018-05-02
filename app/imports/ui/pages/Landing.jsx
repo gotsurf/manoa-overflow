@@ -39,7 +39,7 @@ class Landing extends React.Component {
     };
 
     const animationBack = {
-      background: `url(${'/images/university-of-hawaii-manoa.png'})`,
+      background: `url(${'/images/university-of-hawaii-manoa-low.jpg'})`,
       backgroundSize: '400px 400px',
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'center',
