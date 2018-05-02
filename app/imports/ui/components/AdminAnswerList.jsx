@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import { Table, Input, Loader, Container, Header } from 'semantic-ui-react';
@@ -8,7 +9,7 @@ import { Courses } from '../../api/course/course';
 import { Answers } from '../../api/answer/answer';
 
 /** A simple static component to render some text for the landing page. */
-export default class AdminAnswerList extends React.Component {
+class AdminAnswerList extends React.Component {
 
   componentWillMount() {
     this.resetComponent();
@@ -141,3 +142,10 @@ AdminAnswerList.propTypes = {
   answers: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 };
+export default withTracker(function () {
+  const subscription = Meteor.subscribe('Courses');
+  const subscription2 = Meteor.subscribe('Questions');
+  return {
+    ready: (subscription.ready() && subscription2.ready()),
+  };
+})(AdminAnswerList);
