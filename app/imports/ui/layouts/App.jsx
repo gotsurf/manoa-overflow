@@ -11,6 +11,7 @@ import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
 import Signout from '../pages/Signout';
+import Admin from '../pages/Admin';
 import Course from '../pages/Course';
 import MyQuestions from '../pages/MyQuestions';
 import MyAnswers from '../pages/MyAnswers';
@@ -30,6 +31,7 @@ class App extends React.Component {
               <Route path="/signup" component={Signup}/>
               <Route path="/course/:_id" component={Course}/>
               <Route path="/question/:_id" component={Question}/>
+              <AdminProtectedRoute path="/admin" component={Admin}/>
               <ProtectedRoute path="/my-questions" component={MyQuestions}/>
               <ProtectedRoute path="/my-answers" component={MyAnswers}/>
               <ProtectedRoute path="/my-courses" component={MyCourses}/>
