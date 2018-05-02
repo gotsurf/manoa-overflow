@@ -10,6 +10,7 @@
     "markdown-tag": "^0.2.2",
     "markdown-to-jsx": "^6.6.1",
     "meteor-node-stubs": "^0.3.3",
+    "npm": "^6.0.0",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-addons-pure-render-mixin": "^15.6.2",
