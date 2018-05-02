@@ -76,7 +76,7 @@ DeleteQuestion.propTypes = {
 export default withTracker(function () {
   // Get access to Stuff documents.
   const subscription = Meteor.subscribe('Answers');
-  const subscription1 = Meteor.subscribe('Rating');
+  const subscription1 = Meteor.subscribe('Ratings');
   return {
     ready: (subscription.ready() && subscription1.ready()),
   };

@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { Courses } from '../../api/course/course';
 import { Questions } from '../../api/question/question';
 
-/** Renders a table containing all of questions you have asked. */
+/** Renders a table containing all of answers you have posted. */
 class MyAnswers extends React.Component {
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */

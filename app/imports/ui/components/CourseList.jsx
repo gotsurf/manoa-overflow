@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import { List, Input, Loader } from 'semantic-ui-react';
 
-/** A simple static component to render some text for the landing page. */
+/** A simple static component for the landing page. */
 export default class CourseList extends React.Component {
 
   componentWillMount() {

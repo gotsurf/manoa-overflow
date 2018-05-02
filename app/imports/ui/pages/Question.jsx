@@ -10,6 +10,7 @@ import EditQuestion from '/imports/ui/components/EditQuestion';
 import AddAnswer from '/imports/ui/components/AddAnswer';
 import Voting from '/imports/ui/components/Voting';
 import DeleteQuestion from '/imports/ui/components/DeleteQuestion';
+import DeleteAnswer from '/imports/ui/components/DeleteAnswer';
 
 class Question extends React.Component {
 
@@ -85,6 +86,9 @@ class Question extends React.Component {
               <div className='answer-body'>
                 {this.formatCodeSnippet(answer.answer)}
               </div>
+              <div style={{ marginTop: '30px' }}>
+                <DeleteAnswer answerId={answer._id}/>
+              </div>
             </Grid.Column>
           </Grid>
         </div>
@@ -111,7 +115,6 @@ class Question extends React.Component {
   }
 }
 
-/** Require the presence of a Stuff document in the props object. Uniforms adds 'model' to the props, which we use. */
 Question.propTypes = {
   question: PropTypes.object.isRequired,
   answers: PropTypes.array.isRequired,

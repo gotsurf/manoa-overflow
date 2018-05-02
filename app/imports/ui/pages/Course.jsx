@@ -17,7 +17,6 @@ class Course extends React.Component {
     return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
   }
 
-  /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   /** Render the page once subscriptions have been received. */
   renderPage() {
     return (

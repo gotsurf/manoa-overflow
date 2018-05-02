@@ -60,6 +60,7 @@ export default class QuestionList extends React.Component {
               onChange={_.debounce(this.handleSearchChange, 500, { leading: true })}
           />
           {isLoading ? <Loader active>searching...</Loader> : ''}
+          {questions.length < 1 ? <p style={{ padding: '15px' }}>There are no questions to display</p> : '' }
           <List divided relaxed style={listStyle}>
             {questions.map(function (question, index) {
               return (

@@ -9,7 +9,6 @@ import Logo from '/imports/ui/components/Logo';
 import { Courses } from '../../api/course/course.js';
 import { Questions } from '../../api/question/question.js';
 
-/** A simple static component to render some text for the landing page. */
 class Landing extends React.Component {
 
   render() {

@@ -8,7 +8,7 @@ import { Icon, Button } from 'semantic-ui-react';
 
 class Voting extends React.Component {
 
-  /** Bind 'this' so that a ref to the Form can be saved in formRef and communicated between render() and submit(). */
+  /* Bind 'this' */
   constructor(props) {
     super(props);
     this.render = this.render.bind(this);

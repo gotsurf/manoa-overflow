@@ -74,6 +74,10 @@ const AdminProtectedRoute = ({ component: Component, ...rest }) => (
         render={(props) => {
           const isLogged = Meteor.userId() !== null;
           const isAdmin = Roles.userIsInRole(Meteor.userId(), 'admin');
+          let counter = 0;
+          while (!isAdmin && counter < 1000000) {
+            counter++;
+          }
           return (isLogged && isAdmin) ?
               (<Component {...props} />) :
               (<Redirect to={{ pathname: '/signin', state: { from: props.location } }}/>

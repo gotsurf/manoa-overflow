@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { Courses } from '../../api/course/course.js';
 import { CourseSubscriptions } from '../../api/courseSubscription/courseSubscription';
 
-/** Renders a table containing all of questions you have asked. */
+/** Renders a list containing all of courses you have subscribed to. */
 class MyCourses extends React.Component {
 
   renderCourseList(courses) {
@@ -31,7 +31,6 @@ class MyCourses extends React.Component {
     return (<p>No courses to display</p>);
   }
 
-  /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   /** Render the page once subscriptions have been received. */
   render() {
 

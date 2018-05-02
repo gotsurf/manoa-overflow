@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { List, Input, Loader, Grid } from 'semantic-ui-react';
 import DeleteQuestion from '/imports/ui/components/DeleteQuestion';
 
-/** A simple static component to render some text for the landing page. */
 export default class AdminQuestionList extends React.Component {
 
   componentWillMount() {
@@ -61,6 +60,7 @@ export default class AdminQuestionList extends React.Component {
               onChange={_.debounce(this.handleSearchChange, 500, { leading: true })}
           />
           {isLoading ? <Loader active>searching...</Loader> : ''}
+          {questions.length < 1 ? <p style={{ padding: '15px' }}>There are no questions to display</p> : '' }
           <List divided relaxed style={listStyle}>
             {questions.map(function (question, index) {
               return (

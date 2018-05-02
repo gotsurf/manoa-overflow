@@ -1,14 +1,14 @@
 import React from 'react';
+import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
 import { withTracker } from 'meteor/react-meteor-data';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import { Table, Input, Loader, Container, Header } from 'semantic-ui-react';
+import DeleteAnswer from '/imports/ui/components/DeleteAnswer';
 import { Questions } from '../../api/question/question';
 import { Courses } from '../../api/course/course';
-import { Answers } from '../../api/answer/answer';
 
-/** A simple static component to render some text for the landing page. */
 class AdminAnswerList extends React.Component {
 
   componentWillMount() {
@@ -42,19 +42,11 @@ class AdminAnswerList extends React.Component {
 
     const { isLoading, results } = this.state;
 
-    const descriptionStyle = {
-      whiteSpace: 'nowrap',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-    };
-
     let answers = this.props.answers;
 
     if (results.length > 0) {
       answers = results;
     }
-
-    const listStyle = { height: '600px', overflowY: 'scroll' };
 
     return (
         <div>
@@ -68,6 +60,7 @@ class AdminAnswerList extends React.Component {
         </div>
     );
   }
+
   renderAnswer(answer) {
 
     const question = Questions.findOne(answer.questionId);
@@ -104,6 +97,9 @@ class AdminAnswerList extends React.Component {
             </Link>
           </Table.Cell>
           <Table.Cell>{date}</Table.Cell>
+          <Table.Cell>
+            <DeleteAnswer answerId={answer._id}/>
+          </Table.Cell>
         </Table.Row>
     );
   }
@@ -121,6 +117,7 @@ class AdminAnswerList extends React.Component {
                 <Table.HeaderCell>Answer</Table.HeaderCell>
                 <Table.HeaderCell>Course</Table.HeaderCell>
                 <Table.HeaderCell>Date</Table.HeaderCell>
+                <Table.HeaderCell>Delete?</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>
@@ -136,7 +133,6 @@ class AdminAnswerList extends React.Component {
     );
   }
 }
-
 
 AdminAnswerList.propTypes = {
   answers: PropTypes.array.isRequired,
