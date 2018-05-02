@@ -1,6 +1,6 @@
 import React from 'react';
 import { Questions, QuestionSchema } from '/imports/api/question/question';
-import { Segment, Modal, Button } from 'semantic-ui-react';
+import { Segment, Modal } from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import TextField from 'uniforms-semantic/TextField';
 import SubmitField from 'uniforms-semantic/SubmitField';
@@ -20,6 +20,7 @@ class EditQuestion extends React.Component {
     this.render = this.render.bind(this);
     this.insertCallback = this.insertCallback.bind(this);
     this.formRef = null;
+    this.state = {};
   }
 
   /** Notify the user of the results of the submit. If successful, clear the form. */
@@ -38,7 +39,7 @@ class EditQuestion extends React.Component {
     Questions.update(_id, { $set: { name: name, question: question, dateCreated: dateCreated,
         owner: owner, courseId: courseId, courseName: courseName } }, this.insertCallback);
     // eslint-disable-next-line
-    window.location.reload(true);
+    this.setState({});
   }
 
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */

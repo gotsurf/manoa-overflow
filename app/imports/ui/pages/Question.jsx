@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import EditQuestion from '/imports/ui/components/EditQuestion';
 import AddAnswer from '/imports/ui/components/AddAnswer';
+import Voting from '/imports/ui/components/Voting';
 
 class Question extends React.Component {
 
@@ -37,6 +38,7 @@ class Question extends React.Component {
             </i> on {date}</p>
             <Grid>
               <Grid.Column width={2}>
+                <Voting typeId={this.props.question._id} type='Question'/>
               </Grid.Column>
               <Grid.Column width={10}>
                 <p>description: </p>
@@ -75,6 +77,7 @@ class Question extends React.Component {
           </i> said:</p>
           <Grid>
             <Grid.Column width={2}>
+              <Voting typeId={answer._id} type='Answer'/>
             </Grid.Column>
             <Grid.Column width={10}>
               <div className='answer-body'>
@@ -94,10 +97,10 @@ class Question extends React.Component {
         <div style={{ whiteSpace: 'pre-wrap' }}>
           {descArray.map(function (key, index) {
             if (index % 2 === 0) {
-              return <p>{key}</p>;
+              return <p key={index}>{key}</p>;
             }
             // eslint-disable-next-line
-            return <div className={'code-snippet'}>
+            return <div key={index} className={'code-snippet'}>
               <code>{key}</code>
             </div>;
           })}

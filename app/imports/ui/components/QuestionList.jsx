@@ -31,6 +31,10 @@ export default class QuestionList extends React.Component {
   };
 
   render() {
+    return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
+  }
+
+  renderPage() {
 
     const { isLoading, results } = this.state;
 
@@ -46,6 +50,8 @@ export default class QuestionList extends React.Component {
       questions = results;
     }
 
+    const listStyle = { height: '600px', overflowY: 'scroll' };
+
     return (
         <div>
           <Input
@@ -54,7 +60,7 @@ export default class QuestionList extends React.Component {
               onChange={_.debounce(this.handleSearchChange, 500, { leading: true })}
           />
           {isLoading ? <Loader active>searching...</Loader> : ''}
-          <List divided relaxed>
+          <List divided relaxed style={listStyle}>
             {questions.map(function (question, index) {
               return (
                   <List.Item key={index}>
@@ -74,4 +80,5 @@ export default class QuestionList extends React.Component {
 
 QuestionList.propTypes = {
   questions: PropTypes.array.isRequired,
+  ready: PropTypes.bool.isRequired,
 };
