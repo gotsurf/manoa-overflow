@@ -33,7 +33,7 @@ class Admin extends React.Component {
     ];
     return (
         <Container>
-          <Header as='h1'>Admin portal</Header>
+          <Header as='h1' textAlign='center'>Admin</Header>
           <Tab panes={panes}/>
         </Container>
     );
