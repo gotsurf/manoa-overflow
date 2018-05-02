@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import { List, Input, Loader } from 'semantic-ui-react';
+import DeleteQuestion from '/imports/ui/components/DeleteQuestion';
 
 /** A simple static component to render some text for the landing page. */
 export default class AdminQuestionList extends React.Component {
@@ -67,7 +68,10 @@ export default class AdminQuestionList extends React.Component {
                     <Link to={`/question/${question._id}`}>
                       <List.Content>
                         <List.Header as='a'>{question.name}</List.Header>
-                        <List.Description style={descriptionStyle}>{question.question}</List.Description>
+                        <List.Description style={descriptionStyle}>
+                          {question.question}
+                          <DeleteQuestion questionId={question._id}/>
+                        </List.Description>
                       </List.Content>
                     </Link>
                   </List.Item>);

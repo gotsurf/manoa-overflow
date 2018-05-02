@@ -3,10 +3,8 @@ import PropTypes from 'prop-types';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 import { Container, Tab, Loader, Header } from 'semantic-ui-react';
-import CourseList from '/imports/ui/components/CourseList';
 import AdminQuestionList from '/imports/ui/components/AdminQuestionList';
 import AdminAnswerList from '/imports/ui/components/AdminAnswerList';
-import Logo from '/imports/ui/components/Logo';
 import { Questions } from '../../api/question/question.js';
 import { Answers } from '../../api/answer/answer.js';
 

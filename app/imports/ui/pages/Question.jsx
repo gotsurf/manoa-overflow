@@ -47,7 +47,7 @@ class Question extends React.Component {
                   {this.formatCodeSnippet(this.props.question.question)}
                 </div>
                 <EditQuestion question={this.props.question}/>
-                <DeleteQuestion questionId={this.props.question._id}/>
+                <DeleteQuestion questionId={this.props.question._id} courseId={this.props.question.courseId}/>
               </Grid.Column>
             </Grid>
           </div>
