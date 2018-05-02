@@ -9,6 +9,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import EditQuestion from '/imports/ui/components/EditQuestion';
 import AddAnswer from '/imports/ui/components/AddAnswer';
 import Voting from '/imports/ui/components/Voting';
+import DeleteQuestion from '/imports/ui/components/DeleteQuestion';
 
 class Question extends React.Component {
 
@@ -46,6 +47,7 @@ class Question extends React.Component {
                   {this.formatCodeSnippet(this.props.question.question)}
                 </div>
                 <EditQuestion question={this.props.question}/>
+                <DeleteQuestion questionId={this.props.question._id}/>
               </Grid.Column>
             </Grid>
           </div>

@@ -1,10 +1,13 @@
 import React from 'react';
-import { Answers, AnswerSchema } from '/imports/api/answer/answer';
-import { Ratings, RatingSchema } from '../../api/rating/rating';
-import { Segment, Modal, Button } from 'semantic-ui-react';
+import { Modal, Button } from 'semantic-ui-react';
 import { Bert } from 'meteor/themeteorchef:bert';
 import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
+import { withTracker } from 'meteor/react-meteor-data'
+import { Answers } from '/imports/api/answer/answer';
+import { Ratings } from '../../api/rating/rating';
+import {Questions} from '../../api/question/question';
+import _ from 'lodash';
 
 class DeleteQuestion extends React.Component {
 
@@ -62,19 +65,21 @@ class DeleteQuestion extends React.Component {
   }
 
   deleteQ() {
-    const answers = Answers.filter({ questionId: this.questionId }).fetch();
-    answers.each(function (answer) {
-      const ratings = Ratings.filter({ type: 'Answer', typeId: answer.typeId });
-      ratings.each(function (rate) {
+    const answers = Answers.find({ questionId: this.props.questionId }).fetch();
+    console.log(answers.length);
+    _.each(answers, function (answer) {
+      const ratings = Ratings.find({ type: 'Answer', typeId: answer.typeId }).fetch();
+      _.each(ratings, function (rate) {
         Ratings.remove(rate._id);
       });
       Answers.remove(answer._id);
     });
-    const aRatings = Ratings.filter({ type: 'Question', typeId: this.questionId });
-    aRatings.each(function (rating) {
+    const qRatings = Ratings.find({ type: 'Question', typeId: this.props.questionId }).fetch();
+    _.each(qRatings, function (rating) {
       Ratings.remove(rating._id);
     });
-
+    Questions.remove(this.props.questionId);
+window.location.href='/';
   }
 
   render() {
@@ -87,8 +92,15 @@ class DeleteQuestion extends React.Component {
 }
 
 DeleteQuestion.propTypes = {
-  questionId: PropTypes.object.isRequired,
+  questionId: PropTypes.string.isRequired,
 
 };
 
-export default DeleteQuestion;
+export default withTracker(function () {
+  // Get access to Stuff documents.
+  const subscription = Meteor.subscribe('Answers');
+  const subscription1 = Meteor.subscribe('Rating');
+  return {
+    ready: (subscription.ready() && subscription1.ready()),
+  };
+})(DeleteQuestion);
