@@ -11,23 +11,6 @@ import { Questions } from '../../api/question/question';
 
 class DeleteQuestion extends React.Component {
 
-  /** Bind 'this' so that a ref to the Form can be saved in formRef and communicated between render() and submit(). */
-  constructor(props) {
-    super(props);
-    this.render = this.render.bind(this);
-    this.insertCallback = this.insertCallback.bind(this);
-  }
-
-  /** Notify the user of the results of the submit. If successful, clear the form. */
-  insertCallback(error) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('success');
-    }
-  }
-
-  /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
   renderModal() {
     const modalStyle = {
       modal: {
@@ -51,33 +34,25 @@ class DeleteQuestion extends React.Component {
   }
 
   deleteQ() {
-    const insertCallback = () => this.insertCallback;
     const answers = Answers.find({ questionId: this.props.questionId }).fetch();
-    console.log(`Removing ${answers.length} answers for this question...`);
     _.each(answers, function (answer) {
       const ratings = Ratings.find({ type: 'Answer', typeId: answer._id }).fetch();
-      let removed = 0;
       _.each(ratings, function (rate) {
-        Ratings.remove(rate._id, insertCallback);
-        removed++;
+        Ratings.remove(rate._id);
       });
-      console.log(`${removed} answer ratings removed.`);
-      Answers.remove(answer._id, insertCallback());
+      Answers.remove(answer._id);
     });
     const qRatings = Ratings.find({ type: 'Question', typeId: this.props.questionId }).fetch();
-    console.log(`Removing ${qRatings.length} ratings for this question...`);
     _.each(qRatings, function (rating) {
-      Ratings.remove(rating._id, insertCallback);
+      Ratings.remove(rating._id);
     });
-    console.log('Removing question...');
-    Questions.remove(this.props.questionId, this.insertCallback);
-    console.log('complete.');
+    Questions.remove(this.props.questionId);
     if (this.props.courseId) {
       // eslint-disable-next-line
-      window.location.href = `/course/${this.props.courseId}`;
+      window.location.href = `/#/course/${this.props.courseId}`;
     } else {
       // eslint-disable-next-line
-      window.location.href = '/admin/';
+      window.location.href = '/#/admin/';
     }
   }
 
