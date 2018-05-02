@@ -9,6 +9,7 @@ import _ from 'lodash';
 import { Ratings } from '../../api/rating/rating';
 import { Questions } from '../../api/question/question';
 
+
 class DeleteQuestion extends React.Component {
 
   renderModal() {
@@ -47,13 +48,8 @@ class DeleteQuestion extends React.Component {
       Ratings.remove(rating._id);
     });
     Questions.remove(this.props.questionId);
-    if (this.props.courseId) {
-      // eslint-disable-next-line
-      window.location.href = `/#/course/${this.props.courseId}`;
-    } else {
-      // eslint-disable-next-line
-      window.location.href = '/#/admin/';
-    }
+    // eslint-disable-next-line
+    window.location.href = '/';
   }
 
   render() {
