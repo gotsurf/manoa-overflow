@@ -26,9 +26,9 @@ class EditQuestion extends React.Component {
   /** Notify the user of the results of the submit. If successful, clear the form. */
   insertCallback(error) {
     if (error) {
-      Bert.alert({ type: 'danger', message: `Add failed: ${error.message}` });
+      Bert.alert({ type: 'danger', message: `Edit failed: ${error.message}` });
     } else {
-      Bert.alert({ type: 'success', message: 'Add succeeded' });
+      Bert.alert({ type: 'success', message: 'Edit succeeded' });
       this.formRef.reset();
     }
   }
