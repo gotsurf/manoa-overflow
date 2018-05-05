@@ -1,6 +1,6 @@
 # Manoa Overflow
 
-by Matthew Lam, Jeffrey Wood and David Cole: https://gotsurf.github.io/
+by Matthew Lam, Jeffrey Wood and David Cole: <a href='https://gotsurf.github.io/'>gotsurf.github.io/</a>
 
 You can see our app running <a href='http://manoaoverflow.meteorapp.com/'>here</a>
 
