@@ -83,6 +83,20 @@ Admin users are defined in the `settings.development.json` file before the app i
 
 <img src='app/public/images/m3/admin-answers.png'/>
 
+## Dev Guide
+
+To run this app locally use the following instructions (assuming you have node installed).
+
+You must first install <a href="https://www.meteor.com/install">Meteor</a>.
+
+Then <a href="https://github.com/gotsurf/manoa-overflow/archive/master.zip">download a copy of the app</a>.
+
+Once downloaded, open up a command line interface and navigate to the `app/` directory and run:
+
+`meteor npm install`
+
+`meteor npm run start`
+
 
 ## Milestone 1: Page Mockups
 <a href='https://github.com/gotsurf/manoa-overflow/projects/1'>
