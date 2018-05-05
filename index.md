@@ -27,13 +27,13 @@ You can see our app running <a href='http://manoaoverflow.meteorapp.com/'>here</
 - Subscribe to a Course
 - Admin Functionality
 
-#### Landing
+### Landing
 
 The landing page has a full searchable list of courses and questions where each question belongs to a course, therefore giving it a particular context.
 
 <img src='app/public/images/m3/new-landing.png'/>
 
-#### Signup
+### Signup
 
 To ask questions and post answers you must have an account first. To sign up, click the top right navbar link that says login.
 
@@ -42,26 +42,26 @@ Then click sign up.
 <img src='app/public/images/wt/2.png'/>
 <img src='app/public/images/wt/3.png'/>
 
-#### Ask a Question
+### Ask a Question
 
 From the landing, click on a course to navigate to its course page, there you can click Add Question to post a question for that course.
 
 <img src='app/public/images/wt/4.png'/>
 <img src='app/public/images/wt/5.png'/>
 
-#### Post an Answer
+### Post an Answer
 
 Once a question is listed in the course page, you can click on it to view the full question page. There you can post an answer with a similar modal function.
 
 <img src='app/public/images/wt/6.png'/>
 
-#### Rate a Question or Answer
+### Rate a Question or Answer
 
 On the question page, you can rate both the question and its answers by upvoting or downvoting. One vote per user per posted item. Votes are also changeable.
 
 <img src='app/public/images/wt/7.png'/>
 
-#### Subscribe to a Course and Personal Pages
+### Subscribe to a Course and Personal Pages
 
 Clicking the subscribe button on a course page will add that course to your My Courses page.
 
@@ -75,7 +75,7 @@ Similarly, all your posted questions can be view in My Questions...
 
 <img src='app/public/images/m2/Answers.png'/>
 
-#### Admin Functionality
+### Admin Functionality
 
 Admin users are defined in the `settings.development.json` file before the app is first launched. The Admin page allows the removal of any question or answer from the site and should be used for moderating.
 
@@ -88,19 +88,19 @@ Admin users are defined in the `settings.development.json` file before the app i
 <a href='https://github.com/gotsurf/manoa-overflow/projects/1'>
                             https://github.com/gotsurf/manoa-overflow/projects/1</a>
 
-#### Landing
+### Landing
 
 <img src='app/public/images/m1/landing.png'/>
 
 The landing page will have all courses and include a search bar in the future.
 
-#### Course Page
+### Course Page
 
 <img src='app/public/images/m1/course.png'/>
 
 Each course page will have all questions pertaining to that particular course listed.
 
-#### Question Page
+### Question Page
 
 <img src='app/public/images/m1/question.png'/>
 
@@ -110,13 +110,13 @@ Questions will have answers posted below. Both questions and answers have a vote
 <a href='https://github.com/gotsurf/manoa-overflow/projects/2'>
 https://github.com/gotsurf/manoa-overflow/projects/2</a>
 
-#### Landing
+### Landing
 
 <img src='app/public/images/m2/Home.png'/>
 
 Landing page now has two tabs, one to browse all courses and the other for all questions, each with a search bar.
 
-#### Course Page
+### Course Page
 
 <img src='app/public/images/m2/Course1.png'/>
 
@@ -140,7 +140,7 @@ And voila! We have a forum!
 
 <img src='app/public/images/m2/Course6.png'/>
 
-#### My Courses
+### My Courses
 
 Clicking the subscribe button on a course page will save that course to your favorites.
 
@@ -150,7 +150,7 @@ You can view these saved courses in "My Courses".
 
 <img src='app/public/images/m2/Sub2.png'/>
 
-#### My Questions and Answers
+### My Questions and Answers
 
 You can also view all questions you've asked and answers youve given with links to their original pages and course homepages.
 
@@ -161,19 +161,19 @@ You can also view all questions you've asked and answers youve given with links 
 ## Milestone 3: Admin and Additional Functionality
 <a href='https://github.com/gotsurf/manoa-overflow/projects/3'>https://github.com/gotsurf/manoa-overflow/projects/3</a>
 
-#### Landing Animation
+### Landing Animation
 
 Improved landing graphics for a more professional look including CSS animations. See it live <a href='manoaoverflow.meteorapp.com'>here</a>.
 
 <img src='app/public/images/m3/new-landing.png'/>
 
-#### Ratings
+### Ratings
 
 Questions and Answers can now be voted up or down. 
 
 <img src='app/public/images/m3/ratings.png'/>
 
-#### Delete Questions and Answers
+### Delete Questions and Answers
 
 Ability to delete questions and answers:
 - Deleting a question removes all ratings for the question as well as all answers and corresponding ratings from the database.
@@ -185,7 +185,7 @@ Ability to delete questions and answers:
 
 <img src='app/public/images/m3/delete-confirm.png'/>
 
-#### Admin Interface
+### Admin Interface
 
 Admin interface to view all questions and answers and delete them from the database.
 
