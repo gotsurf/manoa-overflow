@@ -97,6 +97,30 @@ Once downloaded, open up a command line interface and navigate to the `app/` dir
 
 `meteor npm run start`
 
+## Community Feedback
+
+alexcw@hawaii.edu said:
+The only thing I could find is if one line of question trails is too long, it will trail off.
+I recommended limiting the line size and having it wrap.
+It looked good.
+
+sabines@hawaii.edu said:
+It is a great app. It's very easy to navigate and I did not encounter any problems.
+I was really impressed.
+
+deantf@hawaii.edu said:
+I thought it was really cool and wished the site would go live. 
+It would have really helped me during the semester.
+
+tyu@hawaii.edu said:
+I really liked the animation and found that the site worked great!
+I thought it might be cool if users had their question and answer count next to their name
+Also, it might be a good idea if people were only allowed to rate one time.
+
+tcchong@hawaii.edu said:
+I liked what I saw.  I encountered no problems and found the app really useful.
+I thought it was a really great app.
+
 
 ## Milestone 1: Page Mockups
 <a href='https://github.com/gotsurf/manoa-overflow/projects/1'>
